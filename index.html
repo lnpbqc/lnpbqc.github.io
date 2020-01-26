@@ -12,5 +12,36 @@
     <link rel="shortcut icon" href="images/index.jpg" type="image/x-icon" />
 </head>
 <body>
+    <header>
+        <nav>
+            <span>Home</span>
+            <span>Version</span>
+            <span>Links</span>
+            <span>Skills</span>
+        </nav>
+        <div class="head">
+            <div id="nowTime">
+            </div>
+            <div>
+                <iframe id="tianqi" scrolling="no" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&a=getcode&id=34&h=25&w=280"></iframe>
+            </div>
+            <div>
+                <iframe src="http://www.todayonhistory.com/code/6.html?w=250&h=20&bky=dotted&bks=0&fs=14&fc=#565656&hg=14&ie=0&xhx=none&sd=300&px=3&len=0&sk=1&n=0" width="250" height="15" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        function time() {
+            var date = new Date();
+            var hour = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var str = hour + "时" + minutes + "分" + seconds + "秒";
+            var div1 = document.getElementById("nowTime");
+            div1.innerHTML = str;
+        }
+        setInterval(time,1000);
+    </script>
 </body>
 </html>
