@@ -7,41 +7,106 @@
     <meta name="author" content="L.peiqin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Hello World.</title>
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="shortcut icon" href="images/index.jpg" type="image/x-icon" />
+    <link rel="shortcut icon" href="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1074354189,274225261&fm=26&gp=0.jpg" type="image/x-icon" />
 </head>
 <body>
     <header>
         <nav>
-            <span>Home</span>
-            <span>Version</span>
-            <span>Links</span>
-            <span>Skills</span>
+            <span title="home">Home</span>
+            <span title="version">Version</span>
+            <span title="links">Links</span>
+            <span title="skills">Skills</span>
         </nav>
-        <div class="head">
-            <div id="nowTime">
+        <div id="time">
+        </div>
+        <div id="logo">L.NP.BQ.C</div>
+    </header>
+    <section id="introduction">
+        <div id="me">
+            <div id="meLeft">
+                <img 
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1580476778099&di=b25de320d908bed2a8d13ed0dffb88ed&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F06%2F20170606185054_kxjcT.jpeg"
+                alt="高考加油" height="150px">
             </div>
-            <div>
-                <iframe id="tianqi" scrolling="no" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&a=getcode&id=34&h=25&w=280"></iframe>
-            </div>
-            <div>
-                <iframe src="http://www.todayonhistory.com/code/6.html?w=250&h=20&bky=dotted&bks=0&fs=14&fc=#565656&hg=14&ie=0&xhx=none&sd=300&px=3&len=0&sk=1&n=0" width="250" height="15" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+            <div id="meRight">
+                <span></span>
+                <h3>Lnpbqc.</h3>
+                <p>一个庸俗之人，</p>
+                <p>喜欢歌`动漫`电影```</p>
+                <p>做爱做的事。</p>
+                <p><s>“间歇性踌躇满志，持续性混吃等死”</s></p>
+                <button>Go Bilibili</button>
             </div>
         </div>
-    </header>
-
+    </section>
+    <section id="poems">
+        <p>
+            何其有幸，诗意远方，烈酒作伴，寻你。<br>
+            何其有幸，执手难离，情深不受，找你。<br>
+            何其有幸，飘荡萦系，暮色回乡，伴你。<br>
+            何其有幸，漫夏记忆，微笑相言，爱你。<br>
+            何其有幸，星辰寥落，风雨相乘，看你。<br>
+            何其有幸，凌轹江山，十年温酒，见你。<br>
+            何其有幸，辞首隐曦，傲娇怜惜，与你。<br>
+        </p>
+        <br><br>
+        <p>
+            断红尘，从此青灯古佛已出尘。<br>
+            安天下，从此身化血刃斩尽不平。<br>
+            故人离，从此独立孤坟我心难平间。<br>
+            无奈间，从此孤孤单单万丈凡尘独行。<br>
+        </p>
+        <hr>
+        <p>
+            剩下的只有慢慢咕咕咕咕咕咕咕...
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </section>
+    <footer>
+        <p>Copyright &copy;Lnpbqc|2020.1.31<span></span> Lnpbqc Corporation, All Rights Reserved</p>
+        <script>
+            var years = new Date().getFullYear();
+            var months = new Date().getMonth()+1;
+            var days = new Date().getDate();
+            var right = document.querySelector("footer").querySelector('p').querySelector('span');
+            function theRight(){
+                right.innerHTML = "-"+years+"."+ months +"."+ days;
+            }
+            theRight();
+        </script>
+    </footer>
     <script>
         function time() {
             var date = new Date();
             var hour = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            var str = hour + "时" + minutes + "分" + seconds + "秒";
-            var div1 = document.getElementById("nowTime");
+            var str = hour + "H." + minutes + "m." + seconds + "s";
+            var div1 = document.getElementById("time");
             div1.innerHTML = str;
+            if (seconds % 2 == 0) {
+                div1.style.backgroundColor = "black";
+                div1.style.color = "white";
+            } else {
+                div1.style.backgroundColor = "white";
+                div1.style.color = "black";
+            }
         }
         setInterval(time,1000);
+    </script>
+    <script>
+        var span = document.querySelector("#meRight").querySelector("span");
+        span.onclick = function(){
+            document.write('');
+        }
+        var btn = document.querySelector("#meRight").querySelector("button");
+        btn.onclick = function(){
+            location.href = "https://www.bilibili.com"
+        }
     </script>
 </body>
 </html>
