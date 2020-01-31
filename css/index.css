@@ -1,17 +1,21 @@
 * {margin: 0; padding: 0;}
+body {
+    cursor: progress;
+}
+header,section,footer {
+    width: 920px !important;
+    margin: 0 auto !important;
+}
 header {
-    height: 900px;
-    width: 100%;
     border-bottom: 1px solid black;
-    background-image: url("../images/header-bg.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    position: absolute;
+    overflow: hidden;
+    font-family: "Euclid Fraktur";
+    font-size: 20px;
 }
 header nav {
     margin-top: 20px;
     margin-right: 10px;
+    margin-bottom: 20px;
     float: right;
     height: 40px;
     line-height: 40px;
@@ -28,16 +32,80 @@ header nav span:hover {
     border-bottom: 1px solid black;
     cursor: pointer;
 }
-.head {
-    position: relative;
-    background-color: rgba(222, 222, 222, .7);
-    top: 30px;
-    left: 20px;
-    width: 300px;
+#time {
+    line-height: 82px;
+    width: 150px;
+    float: left;
+    text-align: center;
 }
-.head div:nth-child(1){
+#logo {
+    padding-left: 280px;
     font-size: 30px;
+    margin: 0 auto;
+    line-height: 82px;
 }
-.head div:nth-child(2){
+#logo:hover {
+    cursor: pointer;
+    text-shadow: 1px -1px 2px black;
+}
+
+
+#introduction {
+    height: 368px;
+    border-bottom: 1px black solid;
+}
+#me div {
+    float: left;
+}
+#meLeft {
+    width: 40%;
+    height: 368px;
+}
+#meLeft img {
+    position: relative;
+    top: 109px;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+}
+#meRight {
+    width: 60%;
+    height: 368px;
+}
+#meRight h3 {
+    margin-top: 80px;
+    text-decoration: underline;
+}
+#meRight h3,p {
+    padding: 2px 2px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+#meRight span {
+    display: block;
+    float: right;
+    width: 25px;
     height: 25px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .01);
+}
+#meRight button {
+    border: none;
+    outline: none;
+    width: 80px;
+    height: 30px;
+    display: block;
+    position: relative;
+    bottom: -50px;
+    margin: auto;
+    color: white;
+    background-color: white;
+}
+#meRight button:hover {
+    background-color: red;
+    border-radius: 5px;
+}
+
+#poems {
+    text-shadow: 1px 1px gray;
 }
