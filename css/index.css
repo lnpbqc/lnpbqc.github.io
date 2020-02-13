@@ -1,11 +1,19 @@
 * {margin: 0; padding: 0;}
 body {
     cursor: progress;
+    background-color: whitesmoke;
 }
 header,section,footer {
     width: 920px !important;
     margin: 0 auto !important;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* header部分 */
 header {
     border-bottom: 1px solid black;
     overflow: hidden;
@@ -32,6 +40,7 @@ header nav span:hover {
     border-bottom: 1px solid black;
     cursor: pointer;
 }
+nav a {text-decoration: none; color: black;}
 #time {
     line-height: 82px;
     width: 150px;
@@ -46,10 +55,11 @@ header nav span:hover {
 }
 #logo:hover {
     cursor: pointer;
-    text-shadow: 1px -1px 2px black;
+    text-shadow: 0 0 2px rgb(6, 160, 122);
 }
 
 
+/* introduction部分 */
 #introduction {
     height: 368px;
     border-bottom: 1px black solid;
@@ -99,13 +109,164 @@ header nav span:hover {
     bottom: -50px;
     margin: auto;
     color: white;
-    background-color: white;
+    background-color: whitesmoke;
+    transition: all .25s ease-in;
 }
 #meRight button:hover {
-    background-color: red;
+    background-color: rgb(0, 161, 214);
     border-radius: 5px;
+    cursor: pointer;
 }
 
+
+/* theme部分 */
+#theme {
+    height: 500px;
+    position: relative;
+    border-bottom: 1px solid black;
+}
+#theme_list {
+    position: absolute;
+    left: -85px;
+}
+#theme_list li {
+    display: block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    margin-top: 5px;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid #3fc;
+    background-color: rgba(9,143,233,.25);
+}
+#theme_list li:hover {
+    background-color: rgb(9,143,233);
+    cursor: pointer;
+}
+/* blog */
+#blog {
+    display: block;
+    height: 500px;
+}
+#blogHeader {
+    height: 80px;
+    width: 920px;
+    line-height: 80px;
+    font-size: 22px;
+}
+#blogHeader p,#blogHeader h3 {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    height: 80px;
+    background-color: whitesmoke;
+    border-radius: 20px;
+}
+#blogHeader h3 {
+    width: 250px;
+    margin-left: 20px;
+    float: left;
+}
+#blogHeader p {
+    float: right;
+    margin-right: 20px;
+    width: 600px;
+    text-decoration: underline;
+}
+#blogMain {
+    width: 920px;
+    height: 380px;
+}
+#blogMainLeft {
+    width: 500px;
+    height: 300px;
+    position: relative;
+    top: 40px;
+    float: left;
+    margin: 0 40px;
+    background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1581079738268&di=b5fdd51b8e7abea9be06d2f15cfd5b67&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D3481467600%2C1506803260%26fm%3D214%26gp%3D0.jpg);
+    border-radius: 20px;
+}
+#blogMainLeft #blogContent {
+    margin: 0 auto;
+    width: 300px;
+    height: 200px;
+    position: relative;
+    top: 50px;
+    text-align: center;
+    background-color: aqua;
+}
+#blogContent h4 {
+    height: 40px;
+    width: 250px;
+    margin: 0 auto;
+}
+#blogMainRight {
+    width: 260px;
+    height: 300px;
+    position: relative;
+    top: 40px;
+    border-radius: 20px;
+    float: right;
+    margin: 0 40px;
+}
+#blogMainRight div {
+    position: relative;
+    top: 50px;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+}
+#blogFooter {
+    height: 40px;
+    width: 920px;
+    background-color: green;
+    text-align: center;
+    line-height: 40px;
+}
+/* web */
+#web {
+    display: none;
+    height: 500px;
+    width: 920px;
+}
+#web #webFirsts span{
+    float: left;
+    margin: 10px 75px;
+    text-align: center;
+    line-height: 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #3f3f3f;
+    color: white;
+    text-shadow: 0 0 2px white;
+}
+#webFirsts span:hover {box-shadow: 0 0 20px gray;}
+#webMain li {
+    height: 60px;
+    width: 150px;
+    margin: 20px 17px;
+    border-radius: 40px;
+    line-height: 60px;
+    text-align: center;
+    display: block;
+    float: left;
+    color: white;
+    list-style-type: none;
+    list-style: none;
+    background-color: black;
+}
+#webMain li:hover {text-shadow: 0 0 8px white; box-shadow: 0 0 20px gray;}
+/* 倒计时 */
+#daojishi {
+    display: none;
+    height: 500px;
+    width: 920px;
+}
 #poems {
     text-shadow: 1px 1px gray;
 }
