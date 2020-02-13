@@ -10,14 +10,35 @@
     <title>Hello World.</title>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="shortcut icon" href="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1074354189,274225261&fm=26&gp=0.jpg" type="image/x-icon" />
+    <script>
+    alert("关于这个网站的出现，要从一只蝙蝠说起...");
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone","iPad", "iPod"];
+        var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) >= 0) {
+                    flag = false;
+                    break;
+                }
+            }
+        return flag;
+    }
+    var flag = IsPC(); //true为PC端，false为手机端
+    console.log(flag);
+    if(flag != true){
+        alert("你不是PC浏览器，请使用PC浏览器以确保比较好的浏览体验。移动端还未推出。");
+        location.replace(404);
+    }
+    </script>
 </head>
 <body>
     <header>
         <nav>
-            <span title="home">Home</span>
-            <span title="version">Version</span>
-            <span title="links">Links</span>
-            <span title="skills">Skills</span>
+            <span title="home"><a href="#">Home</a></span>
+            <span title="version"><a href="/version">Version</a></span>
+            <span title="links"><a href="/links">Links</a></span>
+            <span title="skills"><a href="/skills">Skills</a></span>
         </nav>
         <div id="time">
         </div>
@@ -41,6 +62,81 @@
             </div>
         </div>
     </section>
+
+    <section id="theme">
+        <div id="theme_list">
+            <ul>
+                <li>博客</li>
+                <li>WEB</li>
+                <li>倒计时</li>
+            </ul>
+        </div>
+        <div id="blog" class="theme">
+            <div id="blogHeader">
+                <h3>涤尘.</h3>
+                <p>在不完美之中寻找美好 接受人生的生死轮回和残缺之美</p>
+            </div>
+            <div id="blogMain">
+                <div id="blogMainLeft">
+                    <div></div>
+                    <div id="blogContent">
+                        <h4><a href="#">...</a></h4>
+                        <h4><a href="#">...</a></h4>
+                        <h4><a href="#">...</a></h4>
+                        <h4><a href="#">...</a></h4>
+                        <h4><a href="#">...</a></h4>
+                    </div>
+                    <div></div>
+                </div>
+                <div id="blogMainRight">
+                    <div>YOU'RE THE BEST.</div>
+                    <div>啊咧啊咧啊咧啊咧啊咧咧...</div>
+                </div>
+            </div>
+            <div id="blogFooter">
+                <p>我的其他可能来源：<a href="https://space.bilibili.com/359098974/article" target="_blanks">Bilibili</a></p>
+            </div>
+        </div>
+        <div id="web" class="theme">
+            <div id="webFirsts">
+                <a href="https://i.qq.com/" target="_blanks" title=""><span>QQ空间</span></a>
+                <a href="https://www.baidu.com/" target="_blanks" title=""><span>百度</span></a>
+                <a href="https://music.qugeek.com/app/player/" target="_blanks" title=""><span>墨灵</span></a>
+                <a href="https://www.github.com/" target="_blanks" title=""><span>Github</span></a>
+            </div>  
+            <div id="webMain">
+                <ul>
+                    <a href="https://91mjw.com/" target="_blanks"><li>91美剧网</li></a>
+                    <a href="https://map.51240.com/" target="_blanks"><li>地图</li></a>
+                    <a href="https://www.dililitv.com/" target="_blanks"><li>嘀哩哩</li></a>
+                    <a href="http://hao.199it.com/" target="_blanks"><li>大数据导航</li></a>
+                    <a href="http://lcoc.top/bizhi/" target="_blanks"><li>壁纸</li></a>
+                    <a href="https://www.allhistory.com/" target="_blanks"><li>全历史</li></a>
+                    <a href="https://study.163.com/" target="_blanks"><li>网易云课堂</li></a>
+                    <a href="https://www.zhihu.com" target="_blanks"><li>知乎</li></a>
+                    <a href="https://new.shuge.org/" target="_blanks"><li>书格</li></a>
+                    <a href="http://www.jiandati.com/" target="_blanks"><li>简答题</li></a>
+                    <a href="http://fakeupdate.net/" target="_blanks" title="？"><li>上班必备</li></a>
+                    <a href="https://lovelive.tools/" target="_blanks"><li>说话的艺术</li></a>
+                    <a href="http://weavesilk.com/" target="_blanks"><li>Weavesilk</li></a>
+                    <a href="https://cli.im/" target="_blanks"><li>二维码生成</li></a>
+                    <a href="http://www.nicetool.net/" target="_blanks"><li>好工具网</li></a>
+                    <a href="https://www.sigoo.com/" target="_blanks"><li>免费版权图片</li></a>
+                    <a href="https://icons8.cn/music" target="_blanks"><li>免费音频素材</li></a>
+                    <a href="https://bilibili.clipchamp.com/editor" target="_blanks"><li>哔哩哔哩在线剪辑</li></a>
+                    <a href="www.chongbuluo.com" target="_blanks"><li>虫部落</li></a>
+                    <a href="https://www.xiaobaipan.com/" target="_blanks"><li>小白盘</li></a>
+                </ul>
+            </div>
+        </div>
+        <div id="daojishi" class="theme">
+            <div style="width: 600px; height: 350px; position: relative; top: 75px; margin: 0 auto; background-color: #3fc; font-size: 50px; letter-spacing: 2px; border-radius: 80px; border: 1px dashed black;">
+                <p>高考还有：</p>
+                <p style="text-shadow: 0 0 5px black; line-height: 300px;"><span id="Dday"></span>天<span id="Dhour"></span>时<span id="Dminute"></span>分<span id="Dsecond"></span>秒</p>
+            </div>
+        </div>
+    </section>
+
     <section id="poems">
         <p>
             何其有幸，诗意远方，烈酒作伴，寻你。<br>
@@ -68,18 +164,18 @@
     </section>
     <footer>
         <p>Copyright &copy;Lnpbqc|2020.1.31<span></span> Lnpbqc Corporation, All Rights Reserved</p>
-        <script>
-            var years = new Date().getFullYear();
-            var months = new Date().getMonth()+1;
-            var days = new Date().getDate();
-            var right = document.querySelector("footer").querySelector('p').querySelector('span');
-            function theRight(){
-                right.innerHTML = "-"+years+"."+ months +"."+ days;
-            }
-            theRight();
-        </script>
     </footer>
     <script>
+        // 版权
+        var years = new Date().getFullYear();
+        var months = new Date().getMonth()+1;
+        var days = new Date().getDate();
+        var right = document.querySelector("footer").querySelector('p').querySelector('span');
+        function theRight(){
+            right.innerHTML = "-"+years+"."+ months +"."+ days;
+        }
+        theRight();
+        // 时间
         function time() {
             var date = new Date();
             var hour = date.getHours();
@@ -97,16 +193,55 @@
             }
         }
         setInterval(time,1000);
-    </script>
-    <script>
+        // 一个隐藏着的按钮
         var span = document.querySelector("#meRight").querySelector("span");
         span.onclick = function(){
-            document.write('');
+            var isRight = confirm("你确定要清除吗？");
+            if(isRight){
+                document.write('');
+            }
         }
+        // 去往新世界的按钮
         var btn = document.querySelector("#meRight").querySelector("button");
         btn.onclick = function(){
-            location.href = "https://www.bilibili.com"
+            location.href = "https://www.bilibili.com";
         }
+        // theme中的选择
+        var lis = document.querySelector('#theme_list').querySelector('ul').querySelectorAll('li');
+        var themeboxes = document.querySelector('#theme').querySelectorAll('.theme');
+        for(var i = 0; i < lis.length;i++){
+            lis[i].setAttribute('index',i);
+            lis[i].onclick = function(){
+                var index = this.getAttribute('index');
+                for(var i = 0; i < themeboxes.length; i++){
+                    themeboxes[i].style.display = "none";
+                }
+                themeboxes[index].style.display = "block";
+            }
+        }
+        // 倒计时
+        var Dday = document.querySelector('#Dday');
+        var Dhour = document.querySelector('#Dhour');
+        var Dminute = document.querySelector('#Dminute');
+        var Dsecond = document.querySelector('#Dsecond');
+        var deadline = new Date("2021-6-7").getTime();
+        function countDown(){
+            var nowTime = new Date().getTime();
+            var times = (deadline - nowTime) / 1000;
+            var d = parseInt(times / 60 / 60 /24);// 天
+            d = d < 10 ? "0" + d : d;
+            var h = parseInt(times / 60 / 60 %24);// 时
+            h = h < 10 ? "0" + h : h;
+            var m = parseInt(times / 60 % 60);// 分
+            m = m < 10 ? "0" + m : m;
+            var s = parseInt(times % 60);// 秒
+            s = s < 10 ? "0" + s : s;
+            Dday.innerHTML = d;
+            Dhour.innerHTML = h;
+            Dminute.innerHTML = m;
+            Dsecond.innerHTML = s;
+        }
+        setInterval(countDown,1000);
     </script>
 </body>
 </html>
