@@ -7,32 +7,35 @@
     <meta name="author" content="L.peiqin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hello World.</title>
+    <title>信仰|涤尘.</title>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="shortcut icon" href="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1074354189,274225261&fm=26&gp=0.jpg" type="image/x-icon" />
     <script>
-    alert("关于这个网站的出现，要从一只蝙蝠说起...");
-    function IsPC() {
-        var userAgentInfo = navigator.userAgent;
-        var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone","iPad", "iPod"];
-        var flag = true;
-            for (var v = 0; v < Agents.length; v++) {
-                if (userAgentInfo.indexOf(Agents[v]) >= 0) {
-                    flag = false;
-                    break;
-                }
-            }
-        return flag;
-    }
-    var flag = IsPC(); //true为PC端，false为手机端
-    console.log(flag);
-    if(flag != true){
-        alert("你不是PC浏览器，请使用PC浏览器以确保比较好的浏览体验。移动端还未推出。");
-        location.replace(404);
-    }
+    confirm('本页面有音乐，请调低音量！！');
+    // function IsPC() {
+    //     var userAgentInfo = navigator.userAgent;
+    //     var Agents = ["Android", "iPhone","SymbianOS", "Windows Phone","iPad", "iPod"];
+    //     var flag = true;
+    //         for (var v = 0; v < Agents.length; v++) {
+    //             if (userAgentInfo.indexOf(Agents[v]) >= 0) {
+    //                 flag = false;
+    //                 break;
+    //             }
+    //         }
+    //     return flag;
+    // }
+    // var flag = IsPC(); //true为PC端，false为手机端
+    // // console.log(flag);
+    // if(flag != true){
+    //     location.replace("404");
+    // }
     </script>
 </head>
 <body>
+    <audio autoplay="autoplay" loop>
+        <source src="http://music.163.com/song/media/outer/url?id=316686.mp3" type="audio/mpeg" />
+        你的浏览器不支持audio
+    </audio>
     <header>
         <nav>
             <span title="home"><a href="#">Home</a></span>
@@ -67,31 +70,42 @@
         <div id="theme_list">
             <ul>
                 <li>博客</li>
-                <li>WEB</li>
+                <li>网站</li>
                 <li>倒计时</li>
+                <li>Talk</li>
             </ul>
         </div>
+        <hr/>
         <div id="blog" class="theme">
             <div id="blogHeader">
                 <h3>涤尘.</h3>
                 <p>在不完美之中寻找美好 接受人生的生死轮回和残缺之美</p>
             </div>
             <div id="blogMain">
-                <div id="blogMainLeft">
-                    <div></div>
-                    <div id="blogContent">
-                        <h4><a href="#">...</a></h4>
-                        <h4><a href="#">...</a></h4>
-                        <h4><a href="#">...</a></h4>
-                        <h4><a href="#">...</a></h4>
-                        <h4><a href="#">...</a></h4>
+                <a href="">
+                    <div class="blogFirst">
+                        <h4>测试123123</h4>
+                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
                     </div>
-                    <div></div>
-                </div>
-                <div id="blogMainRight">
-                    <div>YOU'RE THE BEST.</div>
-                    <div>啊咧啊咧啊咧啊咧啊咧咧...</div>
-                </div>
+                </a>
+                <a href="">
+                    <div class="blogSecond">
+                        <h4>测试123123</h4>
+                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="blogThird">
+                        <h4>测试123123</h4>
+                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                    </div>
+                </a>
+                <a href="">
+                    <div class="blogFourth">
+                        <h4>测试123123</h4>
+                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                    </div>
+                </a>
             </div>
             <div id="blogFooter">
                 <p>我的其他可能来源：<a href="https://space.bilibili.com/359098974/article" target="_blanks">Bilibili</a></p>
@@ -101,7 +115,7 @@
             <div id="webFirsts">
                 <a href="https://i.qq.com/" target="_blanks" title=""><span>QQ空间</span></a>
                 <a href="https://www.baidu.com/" target="_blanks" title=""><span>百度</span></a>
-                <a href="https://music.qugeek.com/app/player/" target="_blanks" title=""><span>墨灵</span></a>
+                <a href="https://music.qugeek.com/app/player" target="_blanks" title=""><span>墨灵</span></a>
                 <a href="https://www.github.com/" target="_blanks" title=""><span>Github</span></a>
             </div>  
             <div id="webMain">
@@ -109,7 +123,7 @@
                     <a href="https://91mjw.com/" target="_blanks"><li>91美剧网</li></a>
                     <a href="https://map.51240.com/" target="_blanks"><li>地图</li></a>
                     <a href="https://www.dililitv.com/" target="_blanks"><li>嘀哩哩</li></a>
-                    <a href="http://hao.199it.com/" target="_blanks"><li>大数据导航</li></a>
+                    <a href="http://www.iciba.com/" target="_blanks"><li>爱词霸在线词典</li></a>
                     <a href="http://lcoc.top/bizhi/" target="_blanks"><li>壁纸</li></a>
                     <a href="https://www.allhistory.com/" target="_blanks"><li>全历史</li></a>
                     <a href="https://study.163.com/" target="_blanks"><li>网易云课堂</li></a>
@@ -124,44 +138,90 @@
                     <a href="https://www.sigoo.com/" target="_blanks"><li>免费版权图片</li></a>
                     <a href="https://icons8.cn/music" target="_blanks"><li>免费音频素材</li></a>
                     <a href="https://bilibili.clipchamp.com/editor" target="_blanks"><li>哔哩哔哩在线剪辑</li></a>
-                    <a href="www.chongbuluo.com" target="_blanks"><li>虫部落</li></a>
+                    <a href="https://www.chongbuluo.com/" target="_blanks"><li>虫部落</li></a>
                     <a href="https://www.xiaobaipan.com/" target="_blanks"><li>小白盘</li></a>
                 </ul>
+                <!-- 
+                <a href="http://dict.ftqq.com">福利单词</a>
+                <a href="http://fakeupdate.net/">上班摸鱼</a>
+                <a href="https://www.iconfont.cn/">阿里巴巴矢量库</a>
+                <a href="http://www.aigei.com/">爱给网</a>
+                <a href="https://tophub.today/">今日热榜</a>
+                 -->
             </div>
         </div>
         <div id="daojishi" class="theme">
-            <div style="width: 600px; height: 350px; position: relative; top: 75px; margin: 0 auto; background-color: #3fc; font-size: 50px; letter-spacing: 2px; border-radius: 80px; border: 1px dashed black;">
+            <div style="width: 600px; height: 350px; position: relative; top: 75px; margin: 0 auto; background-color: rgba(51,255,204,.25); font-size: 50px; letter-spacing: 2px; border-radius: 80px; border: 1px dashed black;">
                 <p>高考还有：</p>
                 <p style="text-shadow: 0 0 5px black; line-height: 300px;"><span id="Dday"></span>天<span id="Dhour"></span>时<span id="Dminute"></span>分<span id="Dsecond"></span>秒</p>
             </div>
         </div>
-    </section>
+        <div id="talk" class="theme">
+            <div id="talk_list_head">
+                <div id="talk_list_head_pic"></div>
+            </div>
+            <div id="talk_list">
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div id="talker">
 
+            </div>
+        </div>
+    </section>
+    <div id="songs_control">
+        <div class="plus">+</div>
+        <div class="stop">0或1</div>
+        <div class="less">-</div>
+    </div>
     <section id="poems">
-        <p>
-            何其有幸，诗意远方，烈酒作伴，寻你。<br>
-            何其有幸，执手难离，情深不受，找你。<br>
-            何其有幸，飘荡萦系，暮色回乡，伴你。<br>
-            何其有幸，漫夏记忆，微笑相言，爱你。<br>
-            何其有幸，星辰寥落，风雨相乘，看你。<br>
-            何其有幸，凌轹江山，十年温酒，见你。<br>
-            何其有幸，辞首隐曦，傲娇怜惜，与你。<br>
-        </p>
-        <br><br>
-        <p>
-            断红尘，从此青灯古佛已出尘。<br>
-            安天下，从此身化血刃斩尽不平。<br>
-            故人离，从此独立孤坟我心难平间。<br>
-            无奈间，从此孤孤单单万丈凡尘独行。<br>
-        </p>
-        <hr>
-        <p>
+        <blockquote>
+            <p>Pay attention to the signs of love around you , because you know that life has an end.</p>
+            <small>PS:I love you forever.</small>
+        </blockquote>
+        <blockquote>
+            <p>
+                “ 舍不得扔的东西就放那吧， 总有一天你会觉得留着并没有意义。 忘不掉的人就先想着吧， 总有一天会释怀那些曾经拥有的。 其实，我们远比想象中要强大， 致此刻，辗转反侧难以入眠的你。” 
+            </p>
+            <small>——网易云热评《晚安》</small>
+        </blockquote>
+        <blockquote>
+            <p>
+                何其有幸，诗意远方，烈酒作伴，寻你。<br>
+                何其有幸，执手难离，情深不受，找你。<br>
+                何其有幸，飘荡萦系，暮色回乡，伴你。<br>
+                何其有幸，漫夏记忆，微笑相言，爱你。<br>
+                何其有幸，星辰寥落，风雨相乘，看你。<br>
+                何其有幸，凌轹江山，十年温酒，见你。<br>
+                何其有幸，辞首隐曦，傲娇怜惜，与你。<br>
+            </p>
+        </blockquote>
+        <blockquote>
+            <p>
+                断红尘，从此青灯古佛已出尘。<br>
+                安天下，从此身化血刃斩尽不平。<br>
+                故人离，从此独立孤坟我心难平间。<br>
+                无奈间，从此孤孤单单万丈凡尘独行。<br>
+            </p>
+        </blockquote>
+        <p style="margin: 50px 0; font-size: 30px; text-shadow: 0 0 20px gray; text-decoration: line-through;">
             剩下的只有慢慢咕咕咕咕咕咕咕...
         </p>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
     </section>
+
     <footer>
         <p>Copyright &copy;Lnpbqc|2020.1.31<span></span> Lnpbqc Corporation, All Rights Reserved</p>
     </footer>
@@ -175,6 +235,11 @@
             right.innerHTML = "-"+years+"."+ months +"."+ days;
         }
         theRight();
+
+
+
+
+
         // 时间
         function time() {
             var date = new Date();
@@ -193,6 +258,11 @@
             }
         }
         setInterval(time,1000);
+
+
+
+
+
         // 一个隐藏着的按钮
         var span = document.querySelector("#meRight").querySelector("span");
         span.onclick = function(){
@@ -201,11 +271,21 @@
                 document.write('');
             }
         }
+
+
+
+
+
         // 去往新世界的按钮
         var btn = document.querySelector("#meRight").querySelector("button");
         btn.onclick = function(){
             location.href = "https://www.bilibili.com";
         }
+
+
+
+
+        
         // theme中的选择
         var lis = document.querySelector('#theme_list').querySelector('ul').querySelectorAll('li');
         var themeboxes = document.querySelector('#theme').querySelectorAll('.theme');
@@ -219,6 +299,11 @@
                 themeboxes[index].style.display = "block";
             }
         }
+
+
+
+
+
         // 倒计时
         var Dday = document.querySelector('#Dday');
         var Dhour = document.querySelector('#Dhour');
@@ -242,6 +327,39 @@
             Dsecond.innerHTML = s;
         }
         setInterval(countDown,1000);
+
+
+
+
+        // 歌曲控制
+        var songs = document.querySelector('audio');
+        var volume_plus = document.querySelector('#songs_control').querySelector('.plus');
+        var volume_less = document.querySelector('#songs_control').querySelector('.less');
+        var songs_stop = document.querySelector('#songs_control').querySelector('.stop');
+        songs.volume = 0.25;
+        songs_stop.onclick = function(){
+            if(songs.volume == 1 || songs.volume == 0){
+                if(songs.volume == 1){
+                    songs.volume = 0;
+                }else{
+                    songs.volume = 1;
+                }
+            }else{
+                songs.volume = 1;
+            }
+        }
+        volume_plus.onclick = function(){
+            if(songs.volume == 1){
+                console.log('WARNING!');
+            }
+            songs.volume = songs.volume + 0.25;
+        }
+        volume_less.onclick = function(){
+            if(songs.volume == 0){
+                console.log('WARNING!');
+            }
+            songs.volume = songs.volume - 0.25;
+        }
     </script>
 </body>
 </html>
