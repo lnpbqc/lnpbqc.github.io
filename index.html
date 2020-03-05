@@ -32,8 +32,9 @@
     </script>
 </head>
 <body>
-    <audio autoplay="autoplay" loop>
-        <source src="http://music.163.com/song/media/outer/url?id=316686.mp3" type="audio/mpeg" />
+    <audio src="http://music.163.com/song/media/outer/url?id=1405283464.mp3" autoplay="autoplay" loop>
+        <!-- <source src="http://music.163.com/song/media/outer/url?id=316686.mp3" type="audio/mpeg" /> -->
+        <!-- <source src="http://music.163.com/song/media/outer/url?id=1405283464.mp3" type="audio/mpeg" /> -->
         你的浏览器不支持audio
     </audio>
     <header>
@@ -181,7 +182,8 @@
     </section>
     <div id="songs_control">
         <div class="plus">+</div>
-        <div class="stop">0或1</div>
+        <div class="next">NEXT</div>
+        <div class="stop">Stop</div>
         <div class="less">-</div>
     </div>
     <section id="poems">
@@ -330,22 +332,35 @@
 
 
 
-
         // 歌曲控制
+        // 借鉴：https://www.open-open.com/lib/view/open1407401112973.html
         var songs = document.querySelector('audio');
         var volume_plus = document.querySelector('#songs_control').querySelector('.plus');
         var volume_less = document.querySelector('#songs_control').querySelector('.less');
+        var songs_next = document.querySelector('#songs_control').querySelector('.next');
         var songs_stop = document.querySelector('#songs_control').querySelector('.stop');
+        var songs_number = 0;
         songs.volume = 0.25;
-        songs_stop.onclick = function(){
-            if(songs.volume == 1 || songs.volume == 0){
-                if(songs.volume == 1){
-                    songs.volume = 0;
-                }else{
-                    songs.volume = 1;
-                }
+        var songs_stopnum = true;
+        songs_next.onclick = function(){
+            if(songs_number == 0){
+                songs.src = 'http://music.163.com/song/media/outer/url?id=316686.mp3';
+                songs_number += 1;
+            }else if(songs_number == 1){
+                songs.src = 'http://music.163.com/song/media/outer/url?id=28907016.mp3';
+                songs_number += 1;
             }else{
-                songs.volume = 1;
+                songs.src = 'http://music.163.com/song/media/outer/url?id=1405283464.mp3';
+                songs_number = 0;
+            }
+        }
+        songs_stop.onclick = function(){
+            if(songs_stopnum){
+                songs.pause();
+                songs_stopnum = false;
+            }else{
+                songs.play();
+                songs_stopnum = true;
             }
         }
         volume_plus.onclick = function(){
