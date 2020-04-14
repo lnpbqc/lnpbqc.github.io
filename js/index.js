@@ -59,11 +59,11 @@ btn.onclick = function(){
 
 
 // theme中的选择
-var lis = document.querySelector('#theme_list').querySelector('ul').querySelectorAll('li');
+var themelis = document.querySelector('#theme_list').querySelector('ul').querySelectorAll('li');
 var themeboxes = document.querySelector('#theme').querySelectorAll('.theme');
-for(var i = 0; i < lis.length;i++){
-    lis[i].setAttribute('index',i);
-    lis[i].onclick = function(){
+for(var i = 0; i < themelis.length;i++){
+    themelis[i].setAttribute('index',i);
+    themelis[i].onclick = function(){
         var index = this.getAttribute('index');
         for(var i = 0; i < themeboxes.length; i++){
             themeboxes[i].style.display = "none";
@@ -101,6 +101,9 @@ function countDown(){
 setInterval(countDown,1000);
 
 
+// BILI
+
+
 
 // 歌曲控制
 // 借鉴：https://www.open-open.com/lib/view/open1407401112973.html
@@ -111,7 +114,6 @@ var songs_next = document.querySelector('#songs_control').querySelector('.next')
 var songs_stop = document.querySelector('#songs_control').querySelector('.stop');
 var songs_number = 0;
 songs.volume = 0.25;
-var songs_stopnum = true;
 songs_next.onclick = function(){
     if(songs_number == 0){
         // 青春大概
@@ -131,13 +133,19 @@ songs_next.onclick = function(){
         songs.src = 'http://music.163.com/song/media/outer/url?id=1405283464.mp3';
     }
 }
+var songs_stopnum = true;
 songs_stop.onclick = function(){
     if(songs_stopnum){
-        songs.pause();
+        songs.play();
         songs_stopnum = false;
     }else{
-        songs.play();
+        songs.pause();
         songs_stopnum = true;
+    }
+    if(songs_stopnum == true){
+        songs_stop.innerHTML = 'Play';
+    }else{
+        songs_stop.innerHTML = 'Stop';
     }
 }
 volume_plus.onclick = function(){
@@ -157,12 +165,14 @@ volume_less.onclick = function(){
 // 搜索
 var searchbtn = document.getElementById('tosearch');
 var search = document.getElementById('search');
+var searchinput = document.querySelector('form').querySelector('input');
 var searchflag = true;
 searchbtn.onclick = function(){
     if(searchflag){
         search.style.display = 'block';
         searchflag = false;
     }else{
+        searchinput.value = '';
         search.style.display = 'none';
         searchflag = true;
     }
@@ -175,4 +185,26 @@ searchbtn.onmouseout = function(){
     this.style.backgroundColor = 'rgba(0,0,0,.01)';
     this.style.color = 'rgba(0,0,0,.01)';
 }
+document.addEventListener('keyup',function(e){
+    // console.log(e.keyCode);
+    if(e.keyCode === 110){
+        if(searchflag){
+            search.style.display = 'block';
+            searchinput.focus();
+            searchflag = false;
+        }else{
+            searchinput.blur();
+            searchinput.value = '';
+            search.style.display = 'none';
+            searchflag = true;
+        }
+    }
+})
 
+// 阻止复制
+document.addEventListener('contextmenu',function(e){
+    e.preventDefault();
+})
+document.addEventListener('selectstart',function(e){
+    e.preventDefault();
+})
