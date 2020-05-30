@@ -67,30 +67,22 @@
                 <p>在不完美之中寻找美好 接受人生的生死轮回和残缺之美</p>
             </div>
             <div id="blogMain">
-                <a href="">
-                    <div class="blogFirst">
-                        <h4>测试123123</h4>
-                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="blogSecond">
-                        <h4>测试123123</h4>
-                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="blogThird">
-                        <h4>测试123123</h4>
-                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="blogFourth">
-                        <h4>测试123123</h4>
-                        <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
-                    </div>
-                </a>
+                <div class="blogFirst">
+                    <h4></h4>
+                    <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                </div>
+                <div class="blogSecond">
+                    <h4>测试123123</h4>
+                    <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                </div>
+                <div class="blogThird">
+                    <h4>测试123123</h4>
+                    <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                </div>
+                <div class="blogFourth">
+                    <h4>测试123123</h4>
+                    <span id="blogIntroduction">经常微笑，适度乐观，有助于保持大脑健康。对此，功能核磁共振的神经认知研究显示，微笑等面部表情能相应</span>
+                </div>
             </div>
             <div id="blogFooter">
                 <p>我的其他可能来源：<a href="https://space.bilibili.com/359098974/article" target="_blanks">Bilibili</a></p>
@@ -294,5 +286,35 @@
     <script src="js/index.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script src='js/sao.js'></script>
+    <script src="js/music.js"></script>
+    <script>
+        document.addEventListener('keydown',function(e){
+        // var clock_index = true;
+        // console.log(e.keyCode);
+        function clock(){
+            var clockh = 13;
+            var clockm = 55;
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            if(h == clockh && m == clockm){
+                window.location.replace('./links/clock.html');
+            }
+            console.log(h +"-"+ m +"-"+ s);
+            // if(clock_index && set_index){
+            //     clock_index = false;
+            //     set_index = false;
+            // }else{
+            //     clock_index = true;
+            //     clearInterval(set);
+            // }
+        }
+        if(e.keyCode == 13){
+            var set = window.setInterval(clock,1000);
+            // var set_index = true;
+        }
+        })
+    </script>
 </body>
 </html>
