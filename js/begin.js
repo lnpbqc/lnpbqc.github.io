@@ -15,5 +15,12 @@ var flag = IsPC(); //true为PC端，false为手机端
 // console.log(flag);
 if(flag != true){
     alert("WELCOME EVERYONE!");
-    location.replace("404");
+    var fof = confirm("暂时由于各种原因，不支持移动端");
+    if(fof == true){
+       location.replace("404");
+    }else{
+       while(true){
+            document.write('warning!!!!!!');
+       }
+    }
 }
