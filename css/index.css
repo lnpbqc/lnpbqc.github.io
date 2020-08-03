@@ -198,13 +198,14 @@ header nav span:hover {
     border-radius: 30px;
     position: relative;
     float: left;
-    background-image: url(http://p1.qhimg.com/bdm/480_296_0/t0155d1418168730bc9.jpg);
+    box-shadow: 0 0 10px white;
     background-size: cover;
     background-position: 250px;
     overflow: hidden;
 }
 #blogMain div:hover {
     box-shadow: 0 0 10px black;
+    cursor: pointer;
 }
 #blogMain div h4 {
     display: block;
@@ -213,7 +214,7 @@ header nav span:hover {
     margin-top: 20px;
     text-align: center;
 }
-#blogIntroduction {
+.blogIntroduction {
     height: 80px;
     width: 180px;
     text-indent: 2rem;
@@ -274,42 +275,34 @@ header nav span:hover {
     position: relative;
     top: 75px;
     float: left;
-    background-color: rgba(51,255,204,.25);
-    font-size: 50px;
+    background-color: rgb(255, 255, 255);
+    font-size: 55px;
     letter-spacing: 2px;
     border-radius: 80px;
     border: 1px dashed black;
 }
-#dairygaokao {
-    width: 316px;
-    height: 350px;
-    position: relative;
-    top: 75px;
-    border-radius: 20px;
-    border: 1px solid white;
+#school {
+    width: 318px;
     float: right;
-    background-color: rgba(204,204,204,.5);
-    text-shadow: 0 0 3px white;
-}
-#dairygaokao h4 {
-    line-height: 25px;
-    height: 25px;
-    font-size: 20px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.5);
     text-align: center;
+    height: 500px;
 }
-#dairygaokao li {
-    width: 316px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
+#school > ol li {
+    width: 85%;
+    height: 40px;
+    margin: 5px auto;
+    display: block;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.685);
+    border-bottom: 1px solid black;
 }
-#dairygaokao small {
-    position: relative;
-    padding: 0 15px;
-    top: 90px;
-    left: 250px;
-    height: 20px;
-    border: 1px dashed black;
+#school > ol li:hover {
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    cursor: pointer;
 }
 
 /* Talk */
@@ -367,42 +360,9 @@ header nav span:hover {
     height: 600px;
     background-color: whitesmoke;
 }
-#Bili img {
-    position: relative;
-}
-#Bili img.two2 {
-    height: 100%;
-    float: left;
-    top: 0;
-    left: 0;
-}
-#Bili img.two3 {
-    height: 68%;
-    float: right;
-    top: 0;
-    right: 0;
-}
-#Bili img.bililogo {
-    height: 32%;
-    float: right;
-    clear: right;
-}
-#Bili #bilimain {
-    margin-left: 205px;
-    height: 400px;
-    width: 490px;
-    color: white;
-    text-shadow: 1px 1px 2px black;
-    text-indent: 2rem;
-    background-color: aliceblue;
-}
-#Bili>#bilimain>h4 {
-    color: rgb(115,201,229);
-    position: relative;
-    top: 10px;
+#Bili h4 {
     text-align: center;
 }
-
 /* SAO */
 #SaoUtils {
     margin-top: 520px;
@@ -509,7 +469,9 @@ header nav span:hover {
 #poems {
     text-shadow: 1px 1px gray;
     z-index: 9999;
-    background-image: url(http://p6.qhimg.com/bdm/960_593_0/t01d6f16aa263c225d8.jpg);
+    background-image: url(https://img2.woyaogexing.com/2020/06/20/5ac6db7a3a504c9cb00d5ac8debbf91e!1242x9999.jpeg);
+    background-position: center;
+    background-repeat: repeat-y;
 }
 #poems blockquote {
     border-bottom: 1px solid black;
