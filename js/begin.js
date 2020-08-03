@@ -14,13 +14,6 @@ function IsPC() {
 var flag = IsPC(); //true为PC端，false为手机端
 // console.log(flag);
 if(flag != true){
-    alert("WELCOME EVERYONE!");
-    var fof = confirm("暂时由于各种原因，不支持移动端");
-    if(fof == true){
-       location.replace("404");
-    }else{
-       while(true){
-            document.write('warning!!!!!!');
-       }
-    }
+    // location.replace("404");
+    alert('暂时没能力弄移动端，推荐PC端');
 }
