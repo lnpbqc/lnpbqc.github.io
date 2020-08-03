@@ -70,6 +70,10 @@ for(var i = 0; i < themelis.length;i++){
             themeboxes[i].style.display = "none";
         }
         themeboxes[index].style.display = "block";
+        if(index==3){
+            themeboxes[index].style.display = "none";
+            themeboxes[0].style.display = "block";
+        }
     }
 }
 
@@ -147,21 +151,32 @@ document.addEventListener('keyup',function(e){
 
 // blog部分
 var blog = document.querySelector('#blog').querySelector('#blogMain');
+for(var i = 0; i < blog.children.length; i++){
+    blog.children[i].querySelector('span').innerHTML = '广告位招租';
+    blog.children[i].querySelector('span').style.lineHeight = 80 + "px";
+    blog.children[i].querySelector('h4').innerHTML = '广告位招租';
+}
 var blog_dairy = blog.children[0];
     blog_dairy.onclick = function(){
-        location.replace('/links/dairy/');
+        // location.replace('/links/dairy/');
+        alert('WARNING!');
+        confirm('你想多了，我怎么可能会在这上面更日记呢')
     }
     blog_dairy.querySelector('h4').innerHTML = '日记';
     blog_dairy.querySelector('h4').style.fontFamily = '楷体';
     blog_dairy.querySelector('h4').style.color = 'white';
     blog_dairy.querySelector('h4').style.textShadow = '0 0 20px gray';
-    blog_dairy.querySelector('#blogIntroduction').innerHTML = '似乎一般人都不会写日记的,doge';
-var blog_index;
+    blog_dairy.querySelector('.blogIntroduction').innerHTML = '似乎一般人都不会写日记的,doge';
+    blog_dairy.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
+
+
+
+
 
 // 阻止复制、防止窥探
 document.addEventListener('keydown',function(e){
     // console.log(e.keyCode);
-    if(e.keyCode == 123){
+    if(e.keyCode == 123 || e.keyCode == 17){
         location.replace('https://www.baidu.com/');
     }
 })
@@ -171,3 +186,20 @@ document.addEventListener('contextmenu',function(e){
 document.addEventListener('selectstart',function(e){
     e.preventDefault();
 })
+// 监听是否在页面
+// window.onfocus = function () {
+//     document.title = '尽言谨言净言.|涤尘.';
+// };
+// window.onblur = function () {
+//     document.title = '快回来~页面崩溃了';
+// };
+var hiddenProperty = 'hidden' in document ? 'hidden' :'webkitHidden' in document ? 'webkitHidden' :'mozHidden' in document ? 'mozHidden' :null;
+var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+var onVisibilityChange = function(){
+    if (!document[hiddenProperty]) {
+        document.title = '尽言谨言净言.|涤尘.';
+    }else{
+        document.title = '百度一下，你就知道';
+    }
+}
+document.addEventListener(visibilityChangeEvent, onVisibilityChange);
