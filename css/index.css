@@ -272,18 +272,28 @@ header nav span:hover {
 #gaokao {
     width: 600px;
     height: 350px;
-    position: relative;
-    top: 75px;
     float: left;
     background-color: rgb(255, 255, 255);
     font-size: 55px;
     letter-spacing: 2px;
-    border-radius: 80px;
+    border-radius: 8px;
     border: 1px dashed black;
+}
+#grades {
+    height: 146px;
+    width: 600px;
+    border: 1px solid dodgerblue;
+    float: left;
+    text-align: center;
+    background-color: rgba(231, 198, 198, 0.63);
+}
+#grades th {
+    width: 60px;
+    height: 40px;
+    border: 1px solid dodgerblue;
 }
 #school {
     width: 318px;
-    float: right;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.5);
     text-align: center;
@@ -475,6 +485,7 @@ header nav span:hover {
 }
 #poems blockquote {
     border-bottom: 1px solid black;
+    display: none;
     padding: 20px;
     width: 600px;
     margin: 0 auto;
