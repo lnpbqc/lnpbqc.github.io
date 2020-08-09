@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li a {
+            text-decoration: none;
+            color: black;
+        }
+        div {
+            height: 500px;
+            width: 100%;
+            border: 1px solid black;
+        }
+        ul {
+            position: fixed;
+            right: 100px;
+            bottom: 50px;
+        }
+        iframe{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#yuwen" rel="noopener noreferrer">语文</a></li>
+        <li><a href="#shuxue" rel="noopener noreferrer" onclick="comfire(没有);">数学</a></li>
+        <li><a href="#yingyu" rel="noopener noreferrer" onclick="comfire(没有);">英语</a></li>
+        <li><a href="#wuli" rel="noopener noreferrer" onclick="comfire(没有);">物理</a></li>
+        <li><a href="#huaxue" rel="noopener noreferrer" onclick="comfire(没有);">化学</a></li>
+        <li><a href="#shengwu" rel="noopener noreferrer" onclick="comfire(没有);">生物</a></li>
+    </ul>
+    <div id="yuwen">
+        <a href="./wyw.md" target="_blank">文言文</a>
+        <a href="./yy.md" target="_blank">杨洋</a>
+        <a href="./zw.md" target="_blank">作文</a>
+        <iframe src="" frameborder="0" name="123" width="100%" height="475px"></iframe>
+    </div>
+    <div id="shuxue"></div>
+    <div id="yingyu"></div>
+    <div id="wuli"></div>
+    <div id="huaxue"></div>
+    <div id="shengwu"></div>
+</body>
+</html>
