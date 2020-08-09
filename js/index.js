@@ -169,8 +169,34 @@ var blog_dairy = blog.children[0];
     blog_dairy.querySelector('.blogIntroduction').innerHTML = '似乎一般人都不会写日记的,doge';
     blog_dairy.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
 
+var blog_study = blog.children[1];
+    blog_study.onclick = function(){
+        location.replace('/links/study/');
+        confirm('时间不等人');
+    }
+    blog_study.querySelector('h4').innerHTML = '学习';
+    blog_study.querySelector('h4').style.fontFamily = '楷体';
+    blog_study.querySelector('h4').style.color = 'white';
+    blog_study.querySelector('h4').style.textShadow = '0 0 20px gray';
+    blog_study.querySelector('.blogIntroduction').innerHTML = '今日不肯埋头，明日何以抬头';
+    blog_study.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
 
 
+
+
+// 随机出现poems中的内容
+var poems = document.getElementById('poems');
+function RandomNum(Max,Min){
+    var Range = Max - Min;
+    var Rand = Math.random();
+    var num = Min + Math.round(Rand * Range); //四舍五入
+    return num;
+}
+window.onload = function(){
+    var poems_num = RandomNum(6,0);
+    var block = poems.querySelectorAll('blockquote');
+    block[poems_num].style.display = "block";
+}
 
 
 // 阻止复制、防止窥探
