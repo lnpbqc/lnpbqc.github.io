@@ -47,8 +47,6 @@ span.onclick = function(){
 
 
 
-
-
 // 去往新世界的按钮
 var btn = document.querySelector("#meRight").querySelector("button");
 btn.onclick = function(){
@@ -70,45 +68,8 @@ for(var i = 0; i < themelis.length;i++){
             themeboxes[i].style.display = "none";
         }
         themeboxes[index].style.display = "block";
-        if(index==3){
-            themeboxes[index].style.display = "none";
-            themeboxes[0].style.display = "block";
-        }
     }
 }
-
-
-
-
-
-// 倒计时
-var Dday = document.querySelector('#Dday');
-var Dhour = document.querySelector('#Dhour');
-var Dminute = document.querySelector('#Dminute');
-var Dsecond = document.querySelector('#Dsecond');
-var deadline = new Date("2021-6-7").getTime();
-function countDown(){
-    var nowTime = new Date().getTime();
-    var times = (deadline - nowTime) / 1000;
-    var d = parseInt(times / 60 / 60 /24);// 天
-    d = d < 10 ? "0" + d : d;
-    var h = parseInt(times / 60 / 60 %24);// 时
-    h = h < 10 ? "0" + h : h;
-    var m = parseInt(times / 60 % 60);// 分
-    m = m < 10 ? "0" + m : m;
-    var s = parseInt(times % 60);// 秒
-    s = s < 10 ? "0" + s : s;
-    Dday.innerHTML = d;
-    Dhour.innerHTML = h;
-    Dminute.innerHTML = m;
-    Dsecond.innerHTML = s;
-}
-setInterval(countDown,1000);
-
-
-// BILI
-
-
 
 // 搜索
 var searchbtn = document.getElementById('tosearch');
@@ -151,11 +112,11 @@ document.addEventListener('keyup',function(e){
 
 // blog部分
 var blog = document.querySelector('#blog').querySelector('#blogMain');
-for(var i = 0; i < blog.children.length; i++){
-    blog.children[i].querySelector('span').innerHTML = '广告位招租';
-    blog.children[i].querySelector('span').style.lineHeight = 80 + "px";
-    blog.children[i].querySelector('h4').innerHTML = '广告位招租';
-}
+// for(var i = 0; i < blog.children.length; i++){
+//     blog.children[i].querySelector('span').innerHTML = '广告位招租';
+//     blog.children[i].querySelector('span').style.lineHeight = 80 + "px";
+//     blog.children[i].querySelector('h4').innerHTML = '广告位招租';
+// }
 var blog_dairy = blog.children[0];
     blog_dairy.onclick = function(){
         // location.replace('/links/dairy/');
@@ -164,7 +125,6 @@ var blog_dairy = blog.children[0];
     }
     blog_dairy.querySelector('h4').innerHTML = '日记';
     blog_dairy.querySelector('h4').style.fontFamily = '楷体';
-    blog_dairy.querySelector('h4').style.color = 'white';
     blog_dairy.querySelector('h4').style.textShadow = '0 0 20px gray';
     blog_dairy.querySelector('.blogIntroduction').innerHTML = '似乎一般人都不会写日记的,doge';
     blog_dairy.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
@@ -176,27 +136,60 @@ var blog_study = blog.children[1];
     }
     blog_study.querySelector('h4').innerHTML = '学习';
     blog_study.querySelector('h4').style.fontFamily = '楷体';
-    blog_study.querySelector('h4').style.color = 'white';
     blog_study.querySelector('h4').style.textShadow = '0 0 20px gray';
     blog_study.querySelector('.blogIntroduction').innerHTML = '今日不肯埋头，明日何以抬头';
     blog_study.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
 
 
-
+window.onload = function(){
+    var Dday = document.querySelector('#Dday');
+    var Dhour = document.querySelector('#Dhour');
+    var Dminute = document.querySelector('#Dminute');
+    var Dsecond = document.querySelector('#Dsecond');
+    var deadline = new Date("2021-6-7-8:00").getTime();
+    function countDown(){
+        var nowTime = new Date().getTime();
+        var times = (deadline - nowTime) / 1000;
+        var d = parseInt(times / 60 / 60 /24);// 天
+        d = d < 10 ? "0" + d : d;
+        var h = parseInt(times / 60 / 60 %24);// 时
+        h = h < 10 ? "0" + h : h;
+        var m = parseInt(times / 60 % 60);// 分
+        m = m < 10 ? "0" + m : m;
+        var s = parseInt(times % 60);// 秒
+        s = s < 10 ? "0" + s : s;
+        Dday.innerHTML = d;
+        Dhour.innerHTML = h;
+        Dminute.innerHTML = m;
+        Dsecond.innerHTML = s;
+    }
+    setInterval(countDown,1000);
+    var grades = document.querySelector("#grades");
+    var i = 0
+    grades.innerHTML = '666';
+    do{
+        grades.innerHTML = '666'+grades.innerHTML;
+        i+=1;
+        if(i==4){
+            grades.innerHTML =grades.innerHTML+"<br>";
+        }
+    }while(i<=150)
+}
 
 // 随机出现poems中的内容
-var poems = document.getElementById('poems');
-function RandomNum(Max,Min){
-    var Range = Max - Min;
-    var Rand = Math.random();
-    var num = Min + Math.round(Rand * Range); //四舍五入
-    return num;
-}
-window.onload = function(){
-    var poems_num = RandomNum(6,0);
-    var block = poems.querySelectorAll('blockquote');
-    block[poems_num].style.display = "block";
-}
+// 暂时弃用
+// var poems = document.getElementById('poems');
+// function RandomNum(Max,Min){
+//     var Range = Max - Min;
+//     var Rand = Math.random();
+//     var num = Min + Math.round(Rand * Range); //四舍五入
+//     return num;
+// }
+// window.onload = function(){
+//     var poems_num = RandomNum(6,0);
+//     var block = poems.querySelectorAll('blockquote');
+//     block[poems_num].style.display = "block";
+// }
 
 
 // 阻止复制、防止窥探
@@ -225,7 +218,7 @@ var onVisibilityChange = function(){
     if (!document[hiddenProperty]) {
         document.title = '尽言谨言净言.|涤尘.';
     }else{
-        document.title = '百度一下，你就知道';
+        document.title = '𝔸𝕕𝕕𝕚𝕔𝕥𝕖𝕕.';
     }
 }
 document.addEventListener(visibilityChangeEvent, onVisibilityChange);
