@@ -1,7 +1,7 @@
 * {margin: 0; padding: 0;}
 body {
     cursor: progress;
-    background-color: black;
+    background-color: whitesmoke;
     background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1604739811236&di=1e331dbd883b6f9d11c60addb64f265f&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2F50%2Fv2-4f00b70ed9e563c993557b0bf8816040_r.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -14,7 +14,8 @@ header,section,footer {
 }
 a {
     text-decoration: none;
-    color: black;
+    color: white;
+    /* color: black; */
 }
 ul {
     list-style-type: none;
@@ -23,10 +24,12 @@ ul {
 
 /* header部分 */
 header {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
     overflow: hidden;
     font-family:"Comic Sans MS";;
     font-size: 20px;
+    color: white;
+    
 }
 header nav {
     margin-top: 20px;
@@ -36,7 +39,7 @@ header nav {
     height: 40px;
     line-height: 40px;
     display: block;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 header nav span {
     letter-spacing: 1px;
@@ -45,7 +48,7 @@ header nav span {
     margin: 0 20px;
 }
 header nav span:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid white;
     cursor: pointer;
 }
 #time {
@@ -69,7 +72,7 @@ header nav span:hover {
 /* introduction部分 */
 #introduction {
     height: 368px;
-    border-bottom: 1px black solid;
+    border-bottom: 1px white solid;
     color: white;
 }
 #me div {
@@ -132,7 +135,7 @@ header nav span:hover {
 #theme {
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
 }
 #theme_list {
     height: 86px;
@@ -191,7 +194,7 @@ header nav span:hover {
     width: 920px;
     height: 380px;
 }
-#blogMain div {
+#blogMain>div {
     margin: 15px 25px;
     width: 180px;
     height: 350px;
@@ -203,16 +206,17 @@ header nav span:hover {
     background-position: 250px;
     overflow: hidden;
 }
-#blogMain div:hover {
-    box-shadow: 0 0 10px black;
+#blogMain>div:hover {
+    box-shadow: 0 0 10px white;
     cursor: pointer;
 }
-#blogMain div h4 {
+#blogMain>div h4 {
     display: block;
     font-size: 20px;
     position: relative;
     margin-top: 20px;
     text-align: center;
+    color: white;
 }
 .blogIntroduction {
     height: 80px;
@@ -260,11 +264,10 @@ header nav span:hover {
     color: white;
     list-style-type: none;
     list-style: none;
-    background-color: black;
+    background-color:rgba(30,144,255,.6);
 }
 #webMain li:hover {text-shadow: 0 0 8px white; box-shadow: 0 0 20px gray;}
-/* 倒计时 */
-#daojishi {
+/* 倒计时 */#daojishi {
     display: none;
     height: 500px;
     width: 920px;
@@ -277,7 +280,7 @@ header nav span:hover {
     font-size: 55px;
     letter-spacing: 2px;
     border-radius: 8px;
-    border: 1px dashed black;
+    border: 1px dashed white;
 }
 #grades {
     height: 146px;
@@ -286,6 +289,7 @@ header nav span:hover {
     float: left;
     text-align: center;
     background-color: rgba(231, 198, 198, 0.63);
+    word-wrap: break-word;
 }
 #grades th {
     width: 60px;
@@ -329,13 +333,13 @@ header nav span:hover {
     overflow-y: auto;
     top: 100px;
     left: 0;
-    background-color: black;
+    background-color: rgba(30,144,255,.6);
 }
 #talk_list li {
     list-style-type: none;
     height: 50px;
     width: 100%;
-    background-color: rgba(249,249,250,.95);
+    background-color: rgba(30,144,255,.6);
     border-bottom: #3f3f3f 1px solid;
 }
 #talk_list_head {
@@ -350,7 +354,7 @@ header nav span:hover {
     width: 80px;
     height: 80px;
     border-radius: 40px;
-    background-color: #3fc;
+    background-color: rgba(30,144,255,.6);
     position: absolute;
     top: 10px;
     left: 10px;
@@ -358,21 +362,13 @@ header nav span:hover {
 #talker {
     width: 620px;
     height: 500px;
-    background-color: gray;
+    background-color:rgba(255,255,255,.8);
     position: absolute;
     top: 0;
     right: 0;
 }
 
 
-/* Bili */
-#Bili {
-    height: 600px;
-    background-color: whitesmoke;
-}
-#Bili h4 {
-    text-align: center;
-}
 /* SAO */
 #SaoUtils {
     margin-top: 520px;
@@ -438,14 +434,14 @@ header nav span:hover {
     text-align: center;
     letter-spacing: 2px;
     text-decoration: underline;
-    background-color: white;
+    background-color: rgba(30,144,255,.6);
     border: 2px solid rgb(116,220,254);
 }
 #SUmain blockquote {
     height: 396px;
     width: 30%;
     background-color: rgba(255,255,255,.5);
-    box-shadow: -2px 2px 5px black;
+    box-shadow: -2px 2px 5px rgba(30,144,255,.6);
     float: left;
 }
 #SUmain p {
@@ -469,14 +465,14 @@ header nav span:hover {
     height: 396px;
     width: 70%;
     background-color: rgba(255,255,255,.5);
-    box-shadow: 2px -2px 5px black;
+    box-shadow: 2px -2px 5px rgba(30,144,255,.6);
     float: left;
 }
 
 
 
 
-#poems {
+/* #poems {
     text-shadow: 1px 1px gray;
     z-index: 9999;
     background-image: url(https://img2.woyaogexing.com/2020/06/20/5ac6db7a3a504c9cb00d5ac8debbf91e!1242x9999.jpeg);
@@ -492,6 +488,42 @@ header nav span:hover {
 }
 #poems blockquote p {
     text-align: left;
+} */
+
+
+
+#status {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 40px;
+    border: #3f3f3f 2px dotted;
+    background-color: rgba(123,123,123,.75);
+}
+#status div {
+    display: block;
+    float: left;
+    height: 40px;
+    width: 98px;
+    border: #3fc 1px solid;
+    line-height: 40px;
+    position: relative;
+}
+#status div h6{
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+}
+#status div span{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 39px;
+    border-radius: 10px;
+    background-color: blue;
 }
 
 #songs_control {
