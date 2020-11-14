@@ -12,6 +12,11 @@ header,section,footer {
     width: 920px !important;
     margin: 0 auto !important;
 }
+iframe {
+    display: block;
+    margin:20px auto;
+    box-shadow: 2px 2px 10px #eee inset;
+}
 a {
     text-decoration: none;
     color: white;
@@ -21,6 +26,13 @@ ul {
     list-style-type: none;
 }
 
+@keyframes shake{
+    0% {transform: translate(0,0);}
+    25% {transform: translate(1px,1px);}
+    50% {transform: translate(0,2px);}
+    75% {transform: translate(-1px,-2px);}
+    100% {transform: translate(0,0);}
+}
 
 /* header部分 */
 header {
@@ -209,6 +221,7 @@ header nav span:hover {
 #blogMain>div:hover {
     box-shadow: 0 0 10px white;
     cursor: pointer;
+    animation: shake .3s .1s;
 }
 #blogMain>div h4 {
     display: block;
@@ -247,11 +260,11 @@ header nav span:hover {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #3f3f3f;
+    background-color: rgba(116,220,254,.25);
     color: white;
     text-shadow: 0 0 2px white;
 }
-#webFirsts span:hover {box-shadow: 0 0 20px gray;}
+#webFirsts span:hover {box-shadow: 0 0 20px white;}
 #webMain li {
     height: 60px;
     width: 150px;
@@ -470,7 +483,41 @@ header nav span:hover {
 }
 
 
-
+#biliuser {
+    width: 920px;
+    overflow: hidden;
+    box-shadow: thistle 0 0 50px;
+    margin: auto;
+}
+#biliuser h3 {
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 5px rgb(0, 0, 0);
+    /* text-shadow: indianred; */
+}
+.biliuser {
+    width: 400px;
+    height: 225px;
+    float: left;
+    margin: 30px 30px;
+    box-shadow: 0 0 10px white;
+    transition: all .3s .1s;
+    position: relative;
+}
+.biliuser:hover {
+    border-radius: 10px;
+    animation: shake .3s .1s;
+    cursor: pointer;
+}
+.biliuser div {
+    position: absolute;
+    width: 40%;
+    height: 225px;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.685);
+}
+/* 具体动漫 */
 
 /* #poems {
     text-shadow: 1px 1px gray;
@@ -491,40 +538,73 @@ header nav span:hover {
 } */
 
 
-
-#status {
+#user {
     position: fixed;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 40px;
-    border: #3f3f3f 2px dotted;
-    background-color: rgba(123,123,123,.75);
-}
-#status div {
+    top: -100px;
+    right: 0px;
     display: block;
-    float: left;
-    height: 40px;
-    width: 98px;
-    border: #3fc 1px solid;
-    line-height: 40px;
-    position: relative;
+    height: 120px;
+    width: 40px;
+    border-radius:0 0 20px 20px;
+    transition: all .5s 1s;
+    border: 1px solid dodgerblue;
 }
-#status div h6{
-    display: inline-block;
+#user:hover {
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.685);
+    cursor: pointer;
+}
+#user #login {
+    width: 40px;
+    height: 100px;
     text-align: center;
+    line-height: 100px;
+}
+#userhead {
+    position: relative;
+    top: -20px;
     width: 40px;
     height: 40px;
+    border-radius: 20px;
 }
-#status div span{
-    display: inline-block;
+#login:active {
+    background-color: gray;
+}
+/* 增加登陆样式 */
+#userlogin{
+    display: none;
+    transition: all ease-in-out;
+}
+.user-login{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 25%;
+    height: 200px;
+    background-color:rgb(255, 255, 255);
+    border-radius: 30px;
+    box-shadow: 0 0 10px white;
+}
+.user-login input{
+    display: block;
+    margin: 0 auto;
+}
+.user-login input:nth-child(1),input:nth-child(2){
+    height: 30px;
+    width: 150px;
+    margin-top: 20px;
+    outline: 1px solid dodgerblue;
+}
+.user-login input:nth-child(3),input:nth-child(4){
     height: 20px;
-    width: 20px;
-    position: absolute;
-    left: 39px;
-    border-radius: 10px;
-    background-color: blue;
+    width: 50px;
+    background-color: dodgerblue;
+    outline: none;
 }
+
+
+
 
 #songs_control {
     height: 50px;
