@@ -176,6 +176,28 @@ window.onload = function(){
     }while(i<=150)
 }
 
+
+var biliuser = document.querySelector("#biliuser").querySelectorAll(".biliuser");
+
+
+
+
+
+var lgstartbutton = document.querySelector("#login");
+var logintable = document.querySelector("#userlogin");
+var loginlock = true;
+lgstartbutton.onclick = function(){
+    if(loginlock){
+        logintable.style.display = "block";
+        loginlock = false;
+    }
+    else {
+        logintable.style.display = "none";
+        loginlock = true
+    }
+}
+
+
 // 随机出现poems中的内容
 // 暂时弃用
 // var poems = document.getElementById('poems');
@@ -196,7 +218,7 @@ window.onload = function(){
 document.addEventListener('keydown',function(e){
     // console.log(e.keyCode);
     if(e.keyCode == 123 || e.keyCode == 17){
-        location.replace('https://www.baidu.com/');
+        location.replace('https://man.ilovefishc.com/');
     }
 })
 document.addEventListener('contextmenu',function(e){
