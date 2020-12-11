@@ -29,5 +29,19 @@
         <iframe src="https://www.bilibili.com" frameborder="0" name="123" width="100%" height="900px">
         </iframe>
     </div>
+    <script>
+        document.addEventListener('keydown',function(e){
+            // console.log(e.keyCode);
+            if(e.keyCode == 123 || e.keyCode == 17){
+                location.replace('https://man.ilovefishc.com/');
+            }
+        })
+        document.addEventListener('contextmenu',function(e){
+            e.preventDefault();
+        })
+        document.addEventListener('selectstart',function(e){
+            e.preventDefault();
+        })
+    </script>
 </body>
 </html>
