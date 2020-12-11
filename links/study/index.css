@@ -1,0 +1,71 @@
+* {
+	padding: 0;
+	margin: 0;
+	transition: all .8s .1s;
+}
+body{
+	background-color: whitesmoke;
+}
+fieldset:hover {
+	box-shadow:10px 0px 10px dimgrey;
+	cursor: pointer;
+	border-radius: 0 20px 20px 0;
+}
+#main{
+	position: fixed;
+	width: 25%;
+	height: 100%;
+	border: 1px solid dimgray;
+}
+legend {
+	border: 1px solid dimgray;
+	font-size: 20px;
+	width: 75%;
+	height: 50px;
+	z-index: 20;
+	background-color: white;
+	line-height: 50px;
+	text-align: center;
+	color: white;
+	text-shadow: 3px 0 2px black;
+}
+legend a {
+	text-decoration: none;
+	display: inline-block;
+	font-size: 40px;
+	text-align: center;
+	position: absolute;
+	right: 0px;
+	color: lightcoral;
+}
+ul li,a {
+	width: 100%;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}
+ul li:hover {
+	background-color: black;
+	color: white !important;
+}
+ul {
+	width: 100px;
+	position: absolute;
+	background-color: white;
+    right: 2px;
+	bottom: 50px;
+	list-style-type: none;
+	font-size: 20px;
+	border: 1px solid dodgerblue;
+}
+div {
+	background-color: white;
+	width: 75%;
+	float: right;
+}
+blockquote {
+	margin: 20px auto;
+	padding: 10px;
+	letter-spacing: 2px;
+	border-bottom: 2px solid dodgerblue;
+}
