@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="local,webpages,lpq" />
+    <meta name="description" content="鉴于目前比半吊子还半吊子的能力，只能做个这个的样子。" />
+    <meta name="author" content="L.peiqin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>𝓛𝓷𝓹𝓫𝓺𝓬.</title>
+    <style>
+        h1{
+            text-align: center;
+            color: white;
+            text-shadow: 0 0 4px dodgerblue;
+            font-size: 50px;
+        }
+        h3{
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px dodgerblue;
+            font-size: 30px;
+        }
+        #sentence{
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            background-color: rgb(87, 171, 255);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #sentence::before {
+            content: "点一下试试------→";
+        }
+        #sentence:hover{
+            cursor: pointer;
+        }
+        ol {
+            text-align: center;
+        }
+        ol li {
+            border: 1px solid red;
+            height: 50px;
+            line-height: 50px;
+        }
+        ol li span{
+            display: inline-block;
+            width: 50%;
+            height: 50px;
+        }
+        ol li span:nth-child(odd){
+            background-color: dodgerblue;
+        }
+        ol li span:nth-child(even){
+            /* background-color: gray; */
+            cursor: pointer;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+    <audio src="http://music.163.com/song/media/outer/url?id=1426828806.mp3" loop autoplay>
+        你的浏览器不支持audio
+    </audio>
+    <h1>𝓛𝓷𝓹𝓫𝓺𝓬.</h1>
+    <div id="sentence" onclick="sentence();"></div>
+    <h3>寒假时间表哦~</h3>
+    <div style="position: fixed; left: 20px; top: 20px;">
+        <P id="time">你已打开本页面（学习）：
+            <span></span>
+        </P>
+        <p>记得打卡：<a href="http://daka.app/#/" target="_blank" rel="noopener noreferrer">打卡</a></p>
+    </div>
+    <ol>
+        <li><span>6:30</span><span>起床，提高自己身体素质</span></li>
+        <li><span>6:50</span><span>语文早读</span></li>
+        <li><span>7:20</span><span>吃饭</span></li>
+        <li><span>7:50</span><span>英语听力</span></li>
+        <li><span>8:10</span><span>数学八百</span></li>
+        <li><span>9:00</span><span>语文二轮</span></li>
+        <li><span>10:30</span><span>英语世纪金榜和一本</span></li>
+        <li><span>11:30</span><span>看人民日报等</span></li>
+        <li><span>12:00</span><span>吃饭</span></li>
+        <li><span>12:50</span><span>语数网课</span></li>
+        <li><span>14:00</span><span>试卷</span></li>
+        <li><span>16:40</span><span>练字</span></li>
+        <li><span>17:00</span><span>英语语法</span></li>
+        <li><span>17:20</span><span>吃饭</span></li>
+        <li><span>18:00</span><span>试卷</span></li>
+        <li><span>20:00</span><span>理科书本</span></li>
+        <li><span>21:30</span><span>英语阅读及单词</span></li>
+        <li><span></span><span></span></li>
+        <small>如果有剩余时间，自行支配，提前准备好</small>
+    </ol>
+    <div style="position: fixed; right: 20px; bottom: 50px;">
+        <button onclick="song.play();">音乐开始</button>
+        <button onclick="song.pause();">音乐暂停</button>
+    </div>
+
+</body>
+
+<script>
+    alert("有声音！！！可以暂停。");
+    function sentence()
+    {
+        fetch('https://v1.hitokoto.cn')
+        .then(function (res){
+            return res.json();
+        })
+        .then(function (data) {
+            var hitokoto = document.getElementById('sentence');
+            hitokoto.innerText = data.hitokoto; 
+        })
+        .catch(function (err) {
+            console.error(err);
+        })
+    }
+    sentence();
+    var title = document.querySelector("h1");
+    title.onclick = function(){
+        location.replace('https://lnpbqc.github.io');
+    }
+    var thing = document.querySelector("ol").querySelectorAll("span");
+    for(var i = 0; i < thing.length;i++){
+        thing[i].style.backgroundColor=="gray";
+        if(i%2==1){
+            thing[i].onclick = function(){
+                if(this.style.backgroundColor=="gray"){
+                    this.style.backgroundColor = "dodgerblue";
+                }else{
+                    this.style.backgroundColor = "gray";
+                }
+            }
+        }
+    }
+    var song = document.querySelector("audio");
+    song.volume = 0.05;
+    var time_n = 0;
+    var time_table = document.querySelector("#time").querySelector("span");
+    function time() {
+        time_n+=1;
+        var hour = parseInt((time_n/3600) % 60),minutes = parseInt((time_n / 60))%60, seconds = time_n% 60;
+        var str = hour + "H" + minutes + "m" + seconds + "s";
+        time_table.innerHTML = str;
+    }
+    setInterval(time,1000);
+    // if(event.keyCode==32){song.pause();}
+    // var threshold = 160; // 打开控制台的宽或高阈值  
+    // // 每秒检查一次  
+    // window.setInterval(function() {  
+    //     if (window.outerWidth - window.innerWidth > threshold ||   
+    //     window.outerHeight - window.innerHeight > threshold) {  
+    //         // 如果打开控制台，则刷新页面  
+    //         window.location.reload();  
+    //     }  
+    // }, 1e3);
+</script>
+</html>
