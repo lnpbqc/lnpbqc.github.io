@@ -72,9 +72,10 @@ for(var i = 0; i < themelis.length;i++){
 }
 
 // 搜索
+// 改一下聚焦问题
 var searchbtn = document.getElementById('tosearch');
 var search = document.getElementById('search');
-var searchinput = document.querySelector('form').querySelector('input');
+var searchinput = document.querySelector('form').querySelectorAll('input');
 var searchflag = true;
 searchbtn.onclick = function(){
     if(searchflag){
@@ -95,14 +96,15 @@ searchbtn.onmouseout = function(){
     this.style.color = 'rgba(0,0,0,.01)';
 }
 document.addEventListener('keyup',function(e){
-    // console.log(e.keyCode);
-    if(e.keyCode === 110){
+    console.log(e.key);
+    if(e.key === '.'){
         if(searchflag){
             search.style.display = 'block';
-            searchinput.focus();
+            searchinput[0].focus();
+            searchinput.value = '';
             searchflag = false;
         }else{
-            searchinput.blur();
+            searchinput[0].blur();
             searchinput.value = '';
             search.style.display = 'none';
             searchflag = true;
@@ -118,15 +120,15 @@ var blog = document.querySelector('#blog').querySelector('#blogMain');
 //     blog.children[i].querySelector('h4').innerHTML = '广告位招租';
 // }
 var blog_dairy = blog.children[0];
-    blog_dairy.onclick = function(){
-        // location.replace('/links/dairy/');
-        alert('WARNING!');
-        confirm('你想多了，我怎么可能会在这上面更日记呢')
-    }
-    blog_dairy.querySelector('h4').innerHTML = '日记';
+    // blog_dairy.onclick = function(){
+    //     // location.replace('/links/dairy/');
+    //     alert('WARNING!');
+    //     confirm('你想多了，我怎么可能会在这上面更日记呢')
+    // }
+    blog_dairy.querySelector('h4').innerHTML = 'original';
     blog_dairy.querySelector('h4').style.fontFamily = '楷体';
     blog_dairy.querySelector('h4').style.textShadow = '0 0 20px gray';
-    blog_dairy.querySelector('.blogIntroduction').innerHTML = '似乎一般人都不会写日记的,doge';
+    blog_dairy.querySelector('.blogIntroduction').innerHTML = '于他人无害且对己有利之事，勿听他人之狂吠，且听内心，则达也。';
     blog_dairy.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
 
 var blog_study = blog.children[1];
@@ -164,37 +166,16 @@ window.onload = function(){
         Dsecond.innerHTML = s;
     }
     setInterval(countDown,1000);
-    var grades = document.querySelector("#grades");
-    var i = 0
-    grades.innerHTML = '666';
-    do{
-        grades.innerHTML = '666'+grades.innerHTML;
-        i+=1;
-        if(i==4){
-            grades.innerHTML =grades.innerHTML+"<br>";
-        }
-    }while(i<=150)
-}
-
-
-var biliuser = document.querySelector("#biliuser").querySelectorAll(".biliuser");
-
-
-
-
-
-var lgstartbutton = document.querySelector("#login");
-var logintable = document.querySelector("#userlogin");
-var loginlock = true;
-lgstartbutton.onclick = function(){
-    if(loginlock){
-        logintable.style.display = "block";
-        loginlock = false;
-    }
-    else {
-        logintable.style.display = "none";
-        loginlock = true
-    }
+//     var grades = document.querySelector("#grades");
+//     var i = 0
+//     grades.innerHTML = '666';
+//     do{
+//         grades.innerHTML = '666'+grades.innerHTML;
+//         i+=1;
+//         if(i==4){
+//             grades.innerHTML =grades.innerHTML+"<br>";
+//         }
+//     }while(i<=150)
 }
 
 
