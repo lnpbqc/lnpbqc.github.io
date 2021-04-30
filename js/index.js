@@ -219,7 +219,8 @@ var hiddenProperty = 'hidden' in document ? 'hidden' :'webkitHidden' in
 var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
 var onVisibilityChange = function(){
     if (!document[hiddenProperty]) {
-        document.title = '尽言谨言净言.|涤尘.';
+        document.title = '雲的追憶.|涤尘.';
+        // 尽言谨言禁言
     }else{
         document.title = '𝔸𝕕𝕕𝕚𝕔𝕥𝕖𝕕.';
     }
