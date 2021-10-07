@@ -195,7 +195,7 @@ window.onload = function(){
 // }
 
 
-阻止复制、防止窥探
+//阻止复制、防止窥探
 document.addEventListener('keydown',function(e){
     // console.log(e.keyCode);
     if(e.keyCode == 123 || e.keyCode == 17){
