@@ -23,10 +23,10 @@ function time() {
     var div1 = document.getElementById("time");
     div1.innerHTML = str;
     if (seconds % 2 == 0) {
-        div1.style.backgroundColor = "black";
+        div1.style.backgroundColor = "rgba(0,0,0,.5)";
         div1.style.color = "white";
     } else {
-        div1.style.backgroundColor = "white";
+        div1.style.backgroundColor = "rgba(255,255,255,.5)";
         div1.style.color = "black";
     }
 }
@@ -133,13 +133,13 @@ var blog_dairy = blog.children[0];
 
 var blog_study = blog.children[1];
     blog_study.onclick = function(){
-        location.replace('/links/study/');
-        confirm('时间不等人');
+        location.replace('./links/study/');
+        alert('时间不等人');
     }
-    blog_study.querySelector('h4').innerHTML = '学习';
+    blog_study.querySelector('h4').innerHTML = '快乐学习';
     blog_study.querySelector('h4').style.fontFamily = '楷体';
     blog_study.querySelector('h4').style.textShadow = '0 0 20px gray';
-    blog_study.querySelector('.blogIntroduction').innerHTML = '今日不肯埋头，明日何以抬头';
+    blog_study.querySelector('.blogIntroduction').innerHTML = '寻常风月，等闲谈笑，称意即相宜、';
     blog_study.querySelector('.blogIntroduction').style.lineHeight = 16+'px';
 
 
@@ -195,7 +195,7 @@ window.onload = function(){
 // }
 
 
-// 阻止复制、防止窥探
+阻止复制、防止窥探
 document.addEventListener('keydown',function(e){
     // console.log(e.keyCode);
     if(e.keyCode == 123 || e.keyCode == 17){
@@ -208,6 +208,8 @@ document.addEventListener('contextmenu',function(e){
 document.addEventListener('selectstart',function(e){
     e.preventDefault();
 })
+
+
 // 监听是否在页面
 // window.onfocus = function () {
 //     document.title = '尽言谨言净言.|涤尘.';
@@ -219,8 +221,7 @@ var hiddenProperty = 'hidden' in document ? 'hidden' :'webkitHidden' in
 var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
 var onVisibilityChange = function(){
     if (!document[hiddenProperty]) {
-        document.title = '雲的追憶.|涤尘.';
-        // 尽言谨言禁言
+        document.title = '尽言谨言净言.|涤尘.';
     }else{
         document.title = '𝔸𝕕𝕕𝕚𝕔𝕥𝕖𝕕.';
     }
