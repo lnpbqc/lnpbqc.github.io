@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Little Notes</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div id="date"></div>
+        <div id="msg"></div>
+    </header>
+    <main id="contents">
+        <article>
+            <div class="publishedTime">
+                06/24
+            </div>
+            <div class="content">
+                教堂的白鸽不会亲吻田野的乌鸦，正如万众瞩目的你不会喜欢默默无名的我。
+            </div>
+        </article>
+    </main>
+    <footer onclick="getAdditionBox()">
+        加点什么
+    </footer>
+    <div id="addContent" contenteditable>
+
+    </div>
+    <div id="showArticle">
+        <div id="showPublishedTime">
+            06/24
+        </div>
+        <div id="showContent">
+            教堂的白鸽不会亲吻田野的乌鸦，正如万众瞩目的你不会喜欢默默无名的我。
+        </div>
+    </div>
+    <div id="help">
+        <ul>
+            <li>Ctrl S --save</li>
+            <li>Esc --quit edition</li>
+            <li>click --open/close article</li>
+            <li>Right click --delete article</li>
+        </ul>
+        <span style='color:red;font-weight:bolder;'>注：内容完全存储于本地</span>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
