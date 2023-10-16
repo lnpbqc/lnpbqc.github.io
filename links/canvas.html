@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas{
+            display: block;
+            margin: auto;
+            box-shadow: 0 0 10px gray;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="800"></canvas>
+    <script>
+        let canvas = document.querySelector("#canvas")
+        let ctx = canvas.getContext("2d")
+        ctx.font = "30px Arial"
+        window.onload = ()=>{
+            ctx.beginPath()
+            ctx.moveTo(20,100)
+            ctx.fillRect(50,canvas.height/2-25,50,50)
+            let process = 0
+            let timer = setInterval(()=>{
+                ctx.fillStyle = "black"
+                ctx.fillRect(50,canvas.height/2-25,50+process/100*350,50)
+                let str = process+"%"
+                ctx.fillStyle = "white"
+                ctx.fillText(str,52,canvas.height/2)
+                if(process>=100){
+                    clearInterval(timer)
+                    ctx.fillStyle = "white"
+                    ctx.fillRect(0,0,canvas.width,canvas.height)
+                    ctx.fillStyle = "black"
+                    ctx.font = "30px Arial"
+                    ctx.fillText("Start",canvas.width/2,canvas.height/2)
+                }
+                if(process<90)
+                    process+=Math.round(Math.random()*10)
+                else process = 100
+            },400)
+            ctx.closePath()
+        }
+        canvas.onclick = (e)=>{
+            let x = e.offsetX-canvas.clientLeft
+            let y = e.offsetY-canvas.clientTop
+            let cl = canvas.width/2
+            let cr = canvas.width/2+240
+            let ct = canvas.height/2 - 60
+            let cb = canvas.height/2+10
+            if(x>cl&&x<cr&&y>ct&&y<cb){
+                alert("as")
+            }
+        }
+    </script>
+</body>
+</html>
