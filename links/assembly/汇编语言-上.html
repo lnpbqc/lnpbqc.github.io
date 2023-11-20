@@ -1,0 +1,697 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title>汇编语言</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='汇编语言'><span>汇编语言</span></h1><hr>
+<ul>
+    <li><a href="#one">汇编语言基础知识</a></li>
+    <li><a href="#two">计算机基本原理</a></li>
+    <li><a href="#three">debug</a></li>
+    <li><a href="#four">汇编第一次上机</a></li>
+    <li><a href="#five">寻址方式</a></li>
+    <li><a href="#six">常用的指令系统</a></li>
+    <li><a href="#seven">伪指令和程序格式</a></li>
+</ul>
+<hr><p>&nbsp;</p><h3 id='汇编语言基础知识'><span>汇编语言基础知识</span></h3><p><span id="one"><span> </span></span></p><h6 id='简介'><span>简介</span></h6><blockquote><p><span>面向机器的用符号表示的程序设计语言,也有符号语言.</span>
+<span>汇编语言由:汇编指令(机器码的助记符),伪指令和其他符号</span></p></blockquote><h6 id='数据的表示'><span>数据的表示</span></h6><blockquote><p><span>B(二进制)D(十进制)</span>
+<span>转换:除法取余并倒过来</span>
+<span>原码--就是本身    反码--负数取反,正数不变(符号位不变)    补码--负数在反码基础上加一,正数不变</span><br/><span>采用的是美国信息交换标准代码 </span><em><span>ASCII</span></em></p><ul><li><p><span>注意十六进制要在后面加 </span><b><span>H</span></b><span> 以区别 </span></p></li><li><p><span>十六进制和二进制就是每四位组成</span></p></li><li><p><span>对&quot;数的补码&quot;求补就是该数取反的补码,即 [[x]补]补 = [-x]补</span></p></li></ul></blockquote><h6 id='基本逻辑运算'><span>基本逻辑运算</span></h6><ul><li><p><span>and ^ *</span></p></li><li><p><span>or |</span></p></li><li><p><span>xor </span></p></li><li><p><span>not </span></p></li></ul><hr><h3 id='计算机基本原理'><span>计算机基本原理</span></h3><p><span id="two"><span> </span></span></p><h6 id='计算机组成'><span>计算机组成</span></h6><blockquote><p><span>中央处理器(运算器和控制器),存储器,输入输出,用系统总线(数据总线,地址总线,控制总线)连接起来</span></p></blockquote><h6 id='存储器'><span>存储器</span></h6><p><span>16位CPU的特点</span></p><ul><li><p><span>数据总线16位</span></p></li><li><p><span>最多可以处理16位的数据</span></p></li><li><p><span>寄存器最大宽度16位</span></p></li><li><p><span>寄存器与运算器的通路为16位</span></p></li></ul><p><span>基本存储单元</span></p><blockquote><p><span>八位二进制组成一个字节</span><code>byte</code><span>,两个字组成一个字</span><code>word</code><span>,两个字为双字 </span><code>dword</code>
+<span>8086的存储器以字节为基本存储单位,对内存的读写至少是一个字节</span>
+<span>字的结构如下:</span></p><blockquote><p><span>0 1 1 1 0 0 1 0 | 1 1 1 0 0 0 1 0 </span>
+<span>高 位 字 节     |     低 位 字 节</span></p></blockquote></blockquote><p><strong><span>规定</span></strong><span>:低字节存放于低地址单元,高字节存放于高地址单元</span></p><p><span>如何用16位结构实现20位的物理地址的传送和内存寻址: 8086 CPU在内部使用两个16位地址合成来形成一个20位物理地址的方法.</span></p><h6 id='存储器分段'><span>存储器分段</span></h6><p><span>采用&quot; 段地址*16 + 偏移地址 = 物理地址&quot;,用于采用十六进制来表示,即相当于</span><strong><span>把段地址左移一位加上偏移地址</span></strong><span>就是物理地址</span></p><p><span>每个段的大小为64 KB 即偏移地址 从0000 ~ FFFF</span></p><blockquote><p><span>段的类型</span></p><ul><li><p><span>代码段:存放指令,代码段段基址存放在段寄存器CS,64 KB</span></p></li><li><p><span>数据段:存放数据,数据段段基址存放在段寄存器DS,16 KB</span></p></li><li><p><span>附加段:辅助存放,附加段段基址存放在段寄存器ES,2 KB</span></p></li><li><p><span>堆栈段:堆栈,存放在段寄存器SS</span></p></li></ul></blockquote><h6 id='寄存器'><span>寄存器</span></h6><p><strong><span>通用数据寄存器</span></strong></p><ul><li><p><span>AX:累加器,运算时多使用</span></p></li><li><p><span>BX:基址寄存器,经常用于存放起始偏移地址,如[BX]</span></p></li><li><p><span>CX:计数寄存器,经常用于循环 loop 的次数计算</span></p></li><li><p><span>DX:数据寄存器,有时用于存放32位数据的高十六位</span></p></li></ul><blockquote><p><span>每一个寄存器又分为</span><span>*</span><span>H和</span><span>*</span><span>L,分别存放8位</span></p></blockquote><p><strong><span>地址寄存器</span></strong></p><ul><li><p><span>SP:堆栈指针,存放栈顶的偏移地址,一般与SS配合使用</span></p><blockquote><p><span>存入堆栈每次减二,以字存入,先减后存</span></p></blockquote></li><li><p><span>BP:基址指针,存放数据的偏移地址,与BX配合使用</span></p></li><li><p><span>SI:源变址寄存器,即某个操作的源操作地址</span></p></li><li><p><span>DI:目的变址寄存器,即某个地址的目的操作地址</span></p></li></ul><blockquote><p><span>SI和DI在某些汇编指令下可以自动递增或递减</span></p></blockquote><p><strong><span>段寄存器</span></strong></p><ul><li><p><span>CS:代码段寄存器</span></p></li><li><p><span>SS:堆栈段寄存器</span></p></li><li><p><span>DS:数据段寄存器</span></p></li><li><p><span>ES:附加段寄存器</span></p></li></ul><blockquote><p><span>与前面的存储器分段相映照</span></p></blockquote><p><strong><span>指令指针寄存器</span></strong></p><p><span>IP:用于存放当前指令的地址</span></p><blockquote><p><span>从 CS : IP 指向的内存单元读取指令,进入指令缓冲器</span></p><p><span>IP 加上指令长度,即下一条指令地址</span></p></blockquote><p><strong><span>标志寄存器</span></strong></p><p><span>FLAGS:存放两类标志</span></p><ul><li><p><span>状态标志</span></p><blockquote><ul><li><p><span>CF:进位(carry)</span></p></li><li><p><span>PF:奇偶(positive)</span></p></li><li><p><span>AF:辅助(assistant)</span></p></li><li><p><span>ZF:零(zero)</span></p></li><li><p><span>SF:符号(sign)</span></p></li><li><p><span>OF:溢出(overflow)</span></p></li></ul></blockquote></li><li><p><span>控制标志</span></p><blockquote><ul><li><p><span>TF</span></p></li><li><p><span>IF:中断(int...)</span></p></li><li><p><span>DF:方向(direct)</span></p></li></ul></blockquote></li></ul><h6 id='8086工作模式'><span>8086工作模式</span></h6><p><em><span>有三种模式:实模式,保护模式,虚拟8086模式</span></em></p><blockquote><p><span>16位和MS DOS只在实模式运行,20位的物理地址为16位段地址加16位偏移地址</span></p><p><span>32位使用保护模式,访问内存使用逻辑地址,逻辑地址由16位段选择符(由系统决定)和32位偏移地址(使每段的长度为4GB)得到,支持多任务</span></p><p><span>如win系统中新开一个DOS应用程序就是虚拟8086模式</span></p></blockquote><p>&nbsp;</p><h3 id='debug'><span>Debug</span></h3><p><span id="three"><span> </span></span></p><ul><li><p><span>R</span></p><blockquote><p><span>查看寄存器内容</span></p><p><span>使用 </span><code>r ax</code><span> 可以用来编辑具体寄存器的值,直接回车则不进行更改</span></p></blockquote></li><li><p><span>E</span></p><blockquote><p><span>更改内存内容</span></p><p><span>使用 </span><code>e 1000:0</code><span> 来更改内存中 1000段地址加上0偏移地址的内容</span></p><p><span>空格跳过当前单元内容,回车结束</span></p></blockquote></li><li><p><span>A</span></p><blockquote><p><span>向内存写入汇编命令</span></p><p><span>使用 </span><code>a 1000:0</code><span> 在1000:0 处写入命令</span></p><p><span>在debug中如要 更换 段寄存器  则需要在使用前单独 输入 </span><code>ds</code><span> 来改变,不能 直接 </span><code>ds:[100]</code><span>来使用</span></p></blockquote></li><li><p><span>D</span></p><blockquote><p><span>查看内存内容</span></p><p><span>使用 </span><code>d 1000:0</code><span>来查看内存中的地址</span></p><p><span>在debug命令中,界面左边为逻辑地址,中间为内存单元的内容(</span><strong><span>十六进制</span></strong><span>),右侧为内存对应的ASCII 字符(没有则以 </span><code>.</code><span> 显示)</span></p></blockquote></li><li><p><span>U</span></p><blockquote><p><span>进行反汇编</span></p><p><span>界面左边为逻辑地址,中间为十六进制的机器码,左边为具体的汇编指令</span></p></blockquote></li><li><p><span>G</span></p><blockquote><p><span>可以用执行跳到某个地址的汇编命令处</span></p><p><span>使用 </span><code>g=起始地址 终止地址</code><span>,其中终止地址为设置断点,让程序停在某个位置,便于观察和调试</span></p></blockquote></li><li><p><span>P</span></p><blockquote><p><span>用以执行循环或重复的字符串指令,程序中断或子例程</span></p><p><span>如执行到 </span><code>int 21h</code><span>,p可以一次执行完系统例行程序,并回到用户程序中</span></p></blockquote></li><li><p><span>T</span></p><blockquote><p><span>单步执行</span></p><p><span>使用 </span><code>t=起始地址 指令条数</code></p></blockquote></li><li><p><span>Q</span></p><blockquote><p><span>退出debug</span></p></blockquote></li></ul><p>&nbsp;</p><h3 id='程序实例和上机操作'><span>程序实例和上机操作</span></h3><p><span id="four"><span> </span></span></p><h6 id='汇编的准备程序或脚本'><span>汇编的准备程序或脚本</span></h6><ul><li><p><span>编辑程序 edit.com(可以使用其他文本编辑器)</span></p></li><li><p><span>汇编程序 masm.exe</span></p></li><li><p><span>链接程序 link.exe</span></p></li><li><p><span>调试程序 debug.exe</span></p></li></ul><blockquote><p><span>对于现在的学习汇编需要使用</span><strong><span>DOSBox</span></strong><span>的环境模拟器,</span><a href='http://www.dosbox.com'><span>官网点这里</span></a><span> 其他的配置网上有</span></p></blockquote><h6 id='常用dos命令'><span>常用DOS命令</span></h6><p><em><span>和windows的powershell差不多</span></em></p><h6 id='编译和执行汇编语言的过程'><span>编译和执行汇编语言的过程</span></h6><ol><li><p><span>编辑源文件</span></p></li><li><p><span>使用 </span><code>masm 源文件名</code><span> 汇编产生OBJ二进制目标文件</span></p></li><li><p><span>使用 </span><code>link obj文件名</code><span> 链接产生EXE可执行文件</span></p></li><li><p><span>使用 </span><code>exe文件名</code><span> 直接运行即可</span></p></li></ol><blockquote><p><span>其他选项可以直接 </span><code>enter</code><span> </span><code>回车</code><span> 直接默认</span></p><p><span>或者在上述使用 </span><code>masm</code><span> 和 </span><code>link</code><span> 的结㞑加上 </span><code>;</code><span> 来直接保持默认</span></p></blockquote><p><em><span>还可以使用 </span><code>masm hello hello hello</code><span> 来得到一个列表文件,其中包含一些汇编过程的参考信息</span></em></p><h6 id='常用功能调用'><strong><span>常用功能调用</span></strong></h6><figure class='table-figure'><table><thead><tr><th><span>ah寄存器</span></th><th><span>功能</span></th><th><span>入口参数</span></th><th><span>出口参数</span></th></tr></thead><tbody><tr><td><span>01</span></td><td><span>输入并回显</span></td><td><span>无</span></td><td><span>al(输入的字符)</span></td></tr><tr><td><span>02</span></td><td><span>显示输出字符</span></td><td><span>dl(输出的字符)</span></td><td><span>无</span></td></tr><tr><td><span>07</span></td><td><span>键盘输入</span></td><td><span>无</span></td><td><span>al(输入的字符)</span></td></tr><tr><td><span>09</span></td><td><span>显示字符串</span></td><td><span>DS:DX(串的地址),且串以 </span><code>$</code><span> 结束</span></td><td><span>无</span></td></tr><tr><td><span>0A</span></td><td><span>键盘输入到缓冲区(</span><em><span>数据结构定义见下面</span></em><span>)</span></td><td><span>DS:DX(缓冲区首地址),且存放的是缓冲区的字节数</span></td><td><span>DS:DX+1 存放的是实际字节数</span><br /><span>DS:DX+2 存放的是输入的串地址</span></td></tr><tr><td><span>4C</span></td><td><span>程序结束</span></td><td><span>al(返回码)</span></td><td><span>无</span></td></tr></tbody></table></figure><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="assembly"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="assembly"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.51875px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">data</span> <span class="cm-keyword">segment</span></span></pre></div><div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-keyword">buf</span> <span class="cm-keyword">db</span> <span class="cm-keyword">9</span> <span class="cm-comment">;定义的缓冲区大小</span></span></pre></div><div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-keyword">real</span> <span class="cm-keyword">db</span> ? <span class="cm-comment">;程序运行后改的,? 表示不确定内容,实际输入的字符个数</span></span></pre></div><div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-keyword">str</span> <span class="cm-keyword">db</span> <span class="cm-keyword">9</span> <span class="cm-keyword">dup</span>(?) <span class="cm-comment">;输入的字符实际存放的地方,包含回车键 其中 9 dup(?) 表示 9个?字节区域</span></span></pre></div><div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">data</span> <span class="cm-keyword">ends</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 115px;"></div><div class="CodeMirror-gutters" style="display: none; height: 115px;"></div></div></div></pre><p>&nbsp;</p><h3 id='操作数寻址方式'><span>操作数寻址方式</span></h3><p><span id="five"><span> </span></span></p><p><span>寻址方式即指令中寻找操作数的方式</span></p><p><em><span>偏移地址称为有效地址,简称 EA</span></em></p><ul><li><p><span>立即寻址</span></p><blockquote><p><span>它本身即是操作数</span></p><p><strong><span>只能用于源操作数字段</span></strong><span>,且类型必须和目的操作数一致,目的操作数是字节,则立即数也必须是字节</span></p></blockquote></li><li><p><span>寄存器寻址</span></p><blockquote><p><span>操作数存放在寄存器中</span></p><p><span>16位操作数可以是AX,BX,CX,DX,SI,DI,SP,BP  而8位是除去SI,DI,SP,BP的</span><span>*</span><span>H和</span><span>*</span><span>L寄存器</span></p></blockquote></li></ul><ul><li><p><span>直接寻址</span></p><blockquote><p><span>EA直接写在指令中</span></p><p><span>如 </span><code>mov ax,ds:[100H]</code><span>中的ds:[100H]就是直接寻址,必须使用前缀 ds 指出在数据段中,物理地址按照之前的转换方式来转换</span></p><p><span>还可以用符号地址 如使用 </span><code>db dw</code><span>等伪指令定义的符号,默认为数据段 ds</span></p><p><span>若使用 equ 伪指令定义则需要加上前缀 ds:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="assembly"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="assembly"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.51875px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">value</span> <span class="cm-keyword">dw</span> <span class="cm-keyword">5678h</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">mov</span> <span class="cm-variable">ax</span>,value <span class="cm-comment">; 与下面等价</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">mov</span> <span class="cm-variable">ax</span>,[value]</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="display: none; height: 69px;"></div></div></div></pre><p><span>结果为: ax的内容为 5678H</span></p></blockquote></li><li><p><span>寄存器间接寻址</span></p><blockquote><p><span>EA存在寄存器中</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="assembly"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="assembly"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.51875px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">mov</span> <span class="cm-variable">ax</span>,[<span class="cm-variable">bx</span>]</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p><span>只允许 bx,bp,si,di,其中</span><strong><span>BX,SI,DI</span></strong><span>默认</span><strong><span>DS</span></strong><span>寄存器而</span><strong><span>BP</span></strong><span>默认</span><strong><span>SS</span></strong><span>寄存器</span></p></blockquote></li><li><p><span>寄存器相对寻址</span></p><blockquote><p><span>EA 是寄存器和偏移量之和</span></p><p><span>允许的寄存器和默认段寄存器和寄存器间接寻址一样</span></p><p><span>可以通过以下方式访问:</span></p><ul><li><p><code>mov ax,array[bx]</code></p></li><li><p><code>mov ax,[array][bx]</code></p></li><li><p><code>mov ax,[array+bx]</code></p></li><li><p><code>mov ax,[bx].2623H</code></p></li></ul></blockquote></li><li><p><span>基址变址寻址</span></p><blockquote><p><span>EA 是基址寄存器和一个变址寄存器之和</span></p><p><span>默认段寄存器和寄存器间接寻址一样</span></p><p><strong><span>允许的基址寄存器是BX和BP,变址寄存器是SI和DI</span></strong></p></blockquote></li><li><p><span>相对基址变址寻址</span></p><blockquote><p><span>EA 是一个基址寄存器和一个变址寄存器和一个位移量之和</span></p><p><span>默认段寄存器和寄存器间接寻址一样</span></p><p><strong><span>允许的基址寄存器是BX和BP,变址寄存器是SI和DI</span></strong></p></blockquote></li></ul><blockquote><p><strong><span>双操作数指令中规定不能两个操作数同为内存单元</span></strong></p></blockquote><p>&nbsp;</p><h3 id='常用的指令系统'><span>常用的指令系统</span></h3><p><span id="six"><span> </span></span></p><p><span>汇编语言的一般格式如下:</span></p><p><span>[标号:] 指令助记符 [操作数] [;注释]</span></p><p><code>start: mov ax,data ;将data送入ax</code></p><ul><li><p><span>标号:符号地址,表示指令在内存中的位置,冒号不可省略</span></p></li><li><p><span>指令助记符:指令的英文缩写</span></p></li><li><p><span>操作数:操作的数据或数据所在的地址</span></p><blockquote><p><span>对于双操作数:左边的操作数参与指令操作,存放操作结果,也称目的操作数DST ;右边的操作数仅参与指令操作,在运行后内容不变,也称源操作数SRC</span></p></blockquote></li><li><p><span>注释:以 </span><code>;</code><span> 开始,对指令的功能加以说明</span></p></li></ul><h6 id='通用数据传送指令'><span>通用数据传送指令</span></h6><ul><li><p><span>mov</span></p><blockquote><p><span>格式: </span><code>mov dst,src</code></p><p><strong><span>双操作数规定</span></strong><span>:</span></p><ul><li><p><span>源操作数和目的操作数长度必须一致,如 不能将 258 送入 ah寄存器(8位)</span></p></li><li><p><span>不能同为存储器</span></p></li><li><p><span>目的操作数不能为cs或ip</span></p></li><li><p><span>目的操作数不能是立即数</span></p></li></ul><p><span>以下为错误示例说明:</span></p><p><code>mov [bx],0</code><span>是</span><strong><span>错误</span></strong><span>的,因为以低地址访问主存单元时,[bx]不能确定是字节单元还是字单元,长度不确定.</span></p><blockquote><p><code>mov byte ptr [bx],0</code></p><p><code>mov word ptr [bx],0</code></p></blockquote><p><span>都是可以的</span></p><p><span>段地址寄存器必须通过寄存器得到段地址,不能直接用符号地址,段寄存器,立即数得到</span></p><blockquote><p><code>mov ax,data</code></p><p><code>mov ds,ax</code></p></blockquote><p><strong><span>不管变量的类型如何,其有效地址总是16位的</span></strong></p></blockquote></li><li><p><span>push</span></p><blockquote><p><span>格式: </span><code>push src</code></p><p><span>操作:</span></p><blockquote><p><span>sp &lt;- sp-2</span></p><p><span>sp+1, sp &lt;- src</span></p></blockquote><p><strong><span>以字为单位进行操作</span></strong></p></blockquote></li><li><p><span>pop</span></p><blockquote><p><span>格式: </span><code>pop dst</code></p><p><span>操作:</span></p><blockquote><p><span>dst &lt;- sp+1,sp</span></p><p><span>sp &lt;- sp+2</span></p></blockquote><p><span>下面这个操作也是允许的</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="assembly"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="assembly"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.51875px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">push</span> [2016]</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">; 其他操作</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">pop</span> [2016]</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="display: none; height: 69px;"></div></div></div></pre></blockquote></li><li><p><span>xchg</span></p><blockquote><p><span>格式: </span><code>xchg opr1,opr2</code></p><p><span>用以两个操作数互换位置,两个操作室都视为 </span><strong><span>目的操作数</span></strong></p></blockquote></li></ul><h6 id='累加器专用传送指令'><span>累加器专用传送指令</span></h6><p><span>输入输出端口是CPU与外设传送数据的接口,不属于内存</span></p><p><span>端口地址为0000 ~ FFFF</span></p><p><span>指令只限于AX,AL(累加器)</span></p><ul><li><p><span>in</span></p><blockquote><p><span>把端口号或dx指向的端口的数据输入到累加器</span></p><p><span>长格式:00~FFh,</span><strong><span>占两个字节</span></strong></p><blockquote><p><code>in al,port</code></p><p><code>in ax,port</code></p></blockquote><p><span>短格式:端口号保存在DX寄存器中,当端口号为 </span><em><span>0100H ~ 0FFFFH</span></em><span> 时,必须使用短格式,</span><strong><span>占一个字节</span></strong></p><blockquote><p><code>in al,dx</code></p><p><code>in ax,dx</code></p></blockquote></blockquote></li><li><p><span>out</span></p><blockquote><p><span>把累加器的数据输出到端口或dx指向的端口中</span></p><p><span>长格式:00~FFh,</span><strong><span>占两个字节</span></strong></p><blockquote><p><code>out port,al</code></p><p><code>out port,ax</code></p></blockquote><p><span>短格式:</span><strong><span>占一个字节</span></strong></p><blockquote><p><code>out dx,al</code></p><p><code>out dx,ax</code></p></blockquote></blockquote></li><li><p><span>xlat</span></p><blockquote><p><span>操作:</span></p><blockquote><p><span> al &lt;- bx+al</span></p></blockquote><p><span>就是将存在 bx+al 地址的值传给 al</span></p></blockquote></li></ul><h6 id='地址传送指令'><span>地址传送指令</span></h6><ul><li><p><span>lea</span></p><blockquote><p><span>格式: </span><code>lea reg,src</code></p><p><span>把源操作数的有效地址 EA 送入寄存器</span></p><p><span>使用 </span><code>mov reg,offset src</code><span> 也可</span></p></blockquote></li><li><p><span>lds</span></p><blockquote><p><span>格式: </span><code>lds reg,src</code></p><p><span>操作:</span></p><blockquote><p><span>reg &lt;- src</span></p><p><span>ds &lt;- src+2</span></p></blockquote><p><span>把源操作数指向的内存单元两个字分别送到reg和ds</span></p></blockquote></li><li><p><span>les</span></p><blockquote><p><span>格式: </span><code>les reg,src</code></p><p><span>操作与lds 类似</span></p><p><span>把源操作数指向的内存单元两个字分别送到reg和es</span></p></blockquote></li></ul><h6 id='标志寄存器传送指令操作数默认送入的指令不影响标志位'><span>标志寄存器传送指令(操作数默认,送入的指令不影响标志位)</span></h6><ul><li><p><span>lahf:送入ah</span></p></li><li><p><span>sahf:从ah送入标志寄存器</span></p></li><li><p><span>pushf:标志入栈</span></p></li><li><p><span>popf:标志出栈</span></p></li></ul><h6 id='类型扩展指令'><span>类型扩展指令</span></h6><ul><li><p><span>cbw: convert byte to word</span></p></li><li><p><span>cwd:convert word to double word</span></p></li></ul><blockquote><p><span>操作数默认为累加器</span></p><p><span>扩展为符号扩展</span></p><blockquote><p><span>如 al 最高位为 1 ,则 ah 为 FFH, dx 为 FFFFH</span></p><p><span>如 al 最高位为 0 ,则 ah 为 00H, dx为 0000H</span></p></blockquote><p><span>若 al ,则扩展到 ax</span></p><p><span>若 ax ,则扩展到 dx,ax</span></p></blockquote><h6 id='加法指令'><span>加法指令</span></h6><ul><li><p><span>add:加法</span></p><blockquote><p><span>格式: </span><code>adc  dst,src</code></p><p><span>操作:</span></p><blockquote><p><span>dst &lt;- src + dst</span></p></blockquote></blockquote></li><li><p><span>adc:带进位加法</span></p><blockquote><p><span>格式: </span><code>adc dst,src</code></p><p><span>操作:</span></p><blockquote><p><span>dst &lt;- src + dst + cf</span></p></blockquote><p><span>其中 cf 为 </span><strong><span>运算前</span></strong><span> cf 的值</span></p></blockquote></li><li><p><span>inc:加1</span></p><blockquote><p><span>格式: </span><code>inc opr</code></p><p><span>操作:</span></p><blockquote><p><span>opr &lt;- opr+1</span></p></blockquote><p><strong><span>不影响 CF 标志位</span></strong></p></blockquote></li></ul><blockquote><p><span>无符号数是否溢出需要看</span><strong><span>CF</span></strong><span>标志位</span></p><p><span>有符号数是否溢出需要看</span><strong><span>OF</span></strong><span>标志位</span></p><p><span>如果参与运算的有符号数一正一负,一定不会发生溢出</span></p></blockquote><h6 id='减法指令'><span>减法指令</span></h6><ul><li><p><span>sub</span></p></li><li><p><span>sbb</span></p></li><li><p><span>dec</span>
+<span>以上皆和加法指令类似</span></p></li><li><p><span>neg</span></p><blockquote><p><span>求补(即求相反数)</span></p></blockquote></li><li><p><span>cmp</span></p><blockquote><p><span>格式: </span><code>cmp opr1,opr2</code></p><p><span>操作:</span></p><blockquote><p><span>opr1 - opr2</span></p></blockquote><p><span>若opr1 ＜ opr,则SF为1(表示相减结果为负),CF为1(表示被减数不够减,需要借位,CF置1)</span></p></blockquote></li></ul><blockquote><p><span>如果参与运算的同符号则一定不会发生溢出</span></p><p><span>只有在求补的数为零CF才等于0,其他情况CF为1</span></p></blockquote><h6 id='乘法指令'><span>乘法指令</span></h6><ul><li><p><span>mul</span></p><blockquote><p><code>mul src</code></p><p><span>操作:</span></p><blockquote><p><span>ax &lt;- al </span><span>*</span><span> src</span></p><p><span>dx,ax &lt;- ax </span><span>*</span><span> src</span></p></blockquote></blockquote></li><li><p><span>imul</span></p><blockquote><p><span>与上面类似</span></p></blockquote></li></ul><blockquote><p><span>src可以是寄存器或变量,但不能是立即数,因为立即数长度不确定</span></p><p><span>长度默认是乘数的两倍,所以不会出现溢出的情况</span></p></blockquote><h6 id='除法指令'><span>除法指令</span></h6><ul><li><p><span>div</span></p><blockquote><p><code>div src</code></p><p><span>操作:</span></p><blockquote><p><span>al &lt;- ax </span><span>\</span><span> src</span></p><p><span>ax &lt;- dx,ax </span><span>\</span><span> src</span></p></blockquote></blockquote></li><li><p><span>idiv</span></p><blockquote><p><span>和上面类似</span></p></blockquote></li></ul><blockquote><p><span>由操作可知,一帮需要用符号扩展指令使得被除数比除数长一倍</span></p><p><span>若除数是字节类型,则商为8位,若被除数的高8位≥除数的绝对值,会发生溢出</span></p><p><span>若除数是字类型,则商为16位,若被除数的高16位≥除数的绝对值,会发生溢出</span></p><blockquote><p><span>出现溢出,系统转0号类型中断处理,提示&quot;divide overflow&quot;</span></p></blockquote></blockquote><h6 id='bcd码的十进制调整指令'><span>BCD码的十进制调整指令</span></h6><p><span>简单理解就是把十六进制转换成十进制表示</span></p><ul><li><p><span>DAA:加法的十进制调整指令,将al中的值转为正确的bcd码格式</span></p><blockquote><ul><li><p><span>如果 al 的低四位 &gt; 9,或者 af =1,则 al  = al +6</span></p></li><li><p><span>如果 al 的高四位 &gt; 9,或者 cf = 1,则 al = al + 60h,且cf = 1</span></p></li></ul><p><span>上面操作可以叠加,即如果 af = 1且 cf = 1 ,则 al = al + 66h,qie cf = 1</span></p></blockquote></li><li><p><span>DAS:减法的十进制调整指令</span></p><blockquote><p><span>与上面类似,把加换成减即可</span></p></blockquote></li></ul><p><span>就是 al,bl存放的十六进制的数18,65,把它们当做十进制来看,就是18和65,而不是</span><s><span>24和101</span></s><span> 然后相加为8d(十六进制)转换为93</span></p><h6 id='逻辑与移位指令'><span>逻辑与移位指令</span></h6><ul><li><p><span>and</span></p></li><li><p><span>or</span></p></li><li><p><span>not</span></p><blockquote><p><span>不影响任何标志位</span></p></blockquote></li><li><p><span>xor</span></p></li><li><p><span>test</span></p><blockquote><p><span>两个操作数相与,不保存结构,只根据结果改变标志位</span></p></blockquote></li></ul><ul><li><p><span>shl:逻辑左移</span></p></li><li><p><span>sal:算数左移</span></p></li><li><p><span>shr:逻辑右移</span></p></li><li><p><span>sar:算数右移</span></p></li><li><p><span>rol:循环左移</span></p></li><li><p><span>ror:循环右移</span></p></li><li><p><span>rcl:进位左移</span></p></li><li><p><span>rcr:进位右移</span></p><blockquote><p><span>格式:</span></p><blockquote><ul><li><p><code>shl opr,1</code></p></li><li><p><code>shl opr,cl</code></p></li></ul></blockquote><p><span>如移位的次数大于1则需要把移位的次数送入 cl 中</span></p></blockquote><p><span>移位指令的相关操作图示如下:</span></p><p><img src="./汇编语言.assets/image-20231118215806678.png" referrerpolicy="no-referrer" alt="image-20231118215806678"></p></li></ul><h6 id='串操作指令'><span>串操作指令</span></h6><blockquote><p><span>前缀指令:对于数据串来说,需要重复执行串操作指令才能处理完整个数据串</span></p><p><span>例如 </span><code>rep movsb</code></p><p><span>都需要设置cx,若cx为0,则&quot;跳出&quot;循环</span></p><ul><li><p><span>rep(重复)</span></p></li><li><p><span>repe/repz(相等/为零重复),zf = 1 继续执行</span></p></li><li><p><span>repne/repnz(不相等/不为零重复),zf  = 0 继续执行</span></p></li></ul></blockquote><blockquote><p><span>方向设置有两条指令</span></p><ul><li><p><span>cld(clear direction flag):设置正向,df = 0 SI 或 DI 自动加</span></p></li><li><p><span>std(set direction flag):设置反向,df = 1 SI 或 DI 自动减</span></p></li></ul></blockquote><ul><li><p><span>movs:按 df 标志自动加减</span></p><ul><li><p><span>movsb:字节,加减1</span></p></li><li><p><span>movsw:字,加减2</span></p></li><li><p><span>movs dst,src</span></p></li></ul><blockquote><p><span>目的地址为 ES : [DI] 源地址为 DS:[SI]</span></p><p><span>前面两种格式不需要操作数(默认)</span></p><p><code>movs es:byte ptr[di],ds:[si]</code><span> 以字节为单位传送</span></p></blockquote></li><li><p><span>cmps:</span><strong><span>两串的比较</span></strong></p><ul><li><p><span>cmpsb</span></p></li><li><p><span>cmpsw</span></p></li><li><p><span>cmps dst,src</span></p></li></ul><blockquote><p><span>和movs的地址设置一样</span></p><p><span>不保存结果,只根据结果设置标志位</span></p></blockquote></li><li><p><span>scas:把al/ax的内容与附加段和目的变址寄存器指向的内容进行比较,</span><strong><span>一个字符和一串比较</span></strong></p><ul><li><p><span>scasb</span></p></li><li><p><span>scasw</span></p></li><li><p><span>scas dst</span></p></li></ul><blockquote><p><span>只涉及一个目标串,因此为 ES:[DI],源操作数为 al 或者 ax</span></p></blockquote></li><li><p><span>stos:把al/ax的内容存入附加段和目的变址寄存器指向的内存单元中</span></p><ul><li><p><span>stosb</span></p></li><li><p><span>stosw</span></p></li><li><p><span>stos dst</span></p></li></ul><blockquote><p><span>目的操作数与scas一样</span></p><p><span>可以用于初始化某一块内存区</span></p></blockquote></li><li><p><span>lods:将DS和SI指定的单元内容存入累加器中,</span><del><span>一般没用</span></del></p><ul><li><p><span>lodsb</span></p></li><li><p><span>lodsw</span></p></li><li><p><span>lods src</span></p></li></ul><blockquote><p><span>src由 DS:[SI] 指定</span></p></blockquote></li></ul><h6 id='程序转移指令'><span>程序转移指令</span></h6><p><span>无条件转移</span></p><blockquote><p><span>转移的目标地址在跳转指令中直接给出,叫做直接转移,否则叫做间接转移</span></p></blockquote><ul><li><p><span>段内直接转移</span></p><blockquote><p><span>格式: </span><code>jmp near ptr opr</code></p><p><span>操作: ip &lt;- ip + opr</span></p><p><span>opr是有符号数,如果opr是负数则会程序回退</span></p><p><span>如果在 -128 ~ 127 ,还可以写成 </span><code>jmp short opr</code><span>,通常opr 的属性说明可以省略</span></p><p><strong><span>jmp机器指令中不是直接给出目标偏移地址,而是给出相对于目标位置的位移量(相对)</span></strong></p></blockquote></li><li><p><span>段内间接转移</span></p><blockquote><p><span>格式: </span><code>jmp word ptr opr</code></p><p><span>操作: ip &lt;- EA</span></p><p><span>EA 由 opr 的寻址方式确定,可以使用除立即数的任何一种方式(因为这个是直接转移)</span></p></blockquote></li><li><p><span>段间直接转移(跨段直接远转移)</span></p><blockquote><p><span>格式: </span><code>jmp far ptr opr</code></p><p><span>操作: </span></p><blockquote><p><span>ip &lt;- opr的偏移地址</span></p><p><span>cs &lt;- opr的段地址</span></p></blockquote></blockquote></li><li><p><span>段间间接转移</span></p><blockquote><p><span>格式: </span><code>jmp dword ptr opr</code></p><p><span>操作:</span></p><blockquote><p><span>ip &lt;- EA</span></p><p><span>cs &lt;- EA + 2</span></p></blockquote><p><span>可以使用除立即数 寄存器(</span><em><span>因为是dword,而寄存器只有word</span></em><span>)以外的任何寻址方式</span></p></blockquote><h6 id='条件转移指令'><span>条件转移指令</span></h6><p><span>以下不做详细说明, </span><strong><span>z</span></strong><span> 可以看做zero, </span><strong><span>e</span></strong><span>可以看做 equal, </span><strong><span>s</span></strong><span>可以看做 signed(负数), </span><strong><span>c</span></strong><span>可以看做 carry, </span><strong><span>l</span></strong><span>可以看做less(小), </span><strong><span>b</span></strong><span>可以看做 below, </span><strong><span>o</span></strong><span>可以看做 overflow ... 根据语义理解跳转条件</span></p><p><span>单个条件标志如:</span><code>jz je jnz jne js jns jo jno jc jb jnae jnc jnb jae jp jpe jnp jpo</code><span> </span></p><p><span>根据cx如:</span><code>jcxz</code></p><p><span>比较无符号数如:</span><code>jc jb jnae jnc jnb jae jbe jna jnbe</code></p><p><span>比较有符号数如:</span><code>jl jnl jle jnle</code></p></li></ul><h6 id='循环指令'><span>循环指令</span></h6><ul><li><p><span>loop</span></p></li><li><p><span>loopz/loope</span></p></li><li><p><span>loopnz/loopne</span></p></li></ul><blockquote><p><span>首先 cx-1 ,根据测试条件决定是否转移</span></p></blockquote><p>&nbsp;</p><h3 id='伪指令和程序格式'><span>伪指令和程序格式</span></h3><p><span id="seven"><span> </span></span></p><h6 id='伪指令'><span>伪指令</span></h6><p>&nbsp;</p></div></div>
+</body>
+</html>
