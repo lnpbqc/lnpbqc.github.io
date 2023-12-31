@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+        .one,.two,.three{
+            width: 100%;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .one{
+            font-size: 70px;
+        }
+        .two{
+            font-size: 280px;
+        }
+        .three{
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="one">
+        <span id="year"></span>年
+        <span id="month"></span>月
+        <span id="day"></span>日
+         
+        <span id="week"></span>
+    </div>
+    <div class="two">
+        <span id="hour"></span>:<span id="minutes"></span>:<span id="second"></span>
+    </div>
+    <div class="three">
+        <span id="content"></span>
+    </div>
+
+    <script>
+        let yd = document.querySelector("#year")
+        let md = document.querySelector("#month")
+        let dd = document.querySelector("#day")
+        let wd = document.querySelector("#week")
+
+        let hd = document.querySelector("#hour")
+        let mind = document.querySelector("#minutes")
+        let sd = document.querySelector("#second")
+
+        let cd = document.querySelector("#content")
+
+        // 获取当前日期和时间
+        var currentDate = new Date(2023,11,31,23,59,50)
+
+
+        setInterval(()=>{
+            // 模拟增加一秒钟
+            currentDate.setSeconds(currentDate.getSeconds() + 1);
+
+            // 格式化输出年月日星期时分秒   
+            var year = currentDate.getFullYear();
+            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            var day = currentDate.getDate().toString().padStart(2, '0');
+            var weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            var weekDay = weekDays[currentDate.getDay()];
+            var hours = currentDate.getHours().toString().padStart(2, '0');
+            var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+            var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+            yd.innerHTML = year
+            md.innerHTML = month
+            dd.innerHTML = day
+            wd.innerHTML = weekDay
+            hd.innerHTML = hours
+            mind.innerHTML = minutes
+            sd.innerHTML = seconds
+            if(year==2023){
+                cd.innerHTML = "2023,再见"
+            }else{
+                cd.innerHTML = "2024  平安快乐!一切顺利!"
+            }
+
+
+        },1000)
+    </script>
+</body>
+</html>
