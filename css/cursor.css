@@ -1,0 +1,10 @@
+/* 对所有应用默认选择的鼠标样式，图片和超链接另选 */
+* {
+    cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur),
+        default;
+}
+
+a, img {
+    cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur),
+        default !important;
+}
