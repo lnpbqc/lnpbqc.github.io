@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>微分方程如何解题呢？</title>
+      <link href="/posts/2f28f7d1.html"/>
+      <url>/posts/2f28f7d1.html</url>
+      
+        <content type="html"><![CDATA[<p><strong>微分方程是什么？什么是微分方程？怎么解微分方程啊！！！！！！！</strong><br><del><em>我不会我好菜</em></del></p><h2 id="一阶微分方程"><a href="#一阶微分方程" class="headerlink" title="一阶微分方程"></a>一阶微分方程</h2><p>对于</p><p>$$<br>F(x,y,y^{(1)},y^{(2)},…,y^{(n)},)&#x3D;0<br>$$</p><p>这样方程，称之为<strong>n阶微分方程</strong>，其中$y^{(n)}$是必需的。</p><p>当n&#x3D;1时，上述方程称为<strong>一阶微分方程</strong></p><ul><li>通解：含有n个独立的任意常数的函数</li><li>特解：不含任意常数的函数</li></ul><h3 id="变量可分离"><a href="#变量可分离" class="headerlink" title="变量可分离"></a>变量可分离</h3><p>对于y和x部分可以完全分离的，可以写成这样的形式：</p><p>$$<br>\frac{dy}{g(y)}&#x3D;h(x)dx<br>$$</p><p>两边积分，有通解</p><p>$$<br>\int{\frac{dy}{g(y)}}&#x3D;\int{h(x)dx}+C<br>$$</p><h3 id="齐次微分方程"><a href="#齐次微分方程" class="headerlink" title="齐次微分方程"></a>齐次微分方程</h3><p>若有形式</p><p>$$<br>\frac{dy}{dx}&#x3D;f(x,y)<br>$$<br>则可以令</p><p>$$<br>u&#x3D;\frac{y}{x}，即y&#x3D;ux①<br>$$</p><p>同时，两边对x求导，则有</p><p>$$<br>dy&#x3D;dux+dxu，即dy&#x3D;dux+u②<br>$$</p><p>将①②代入到原方程</p><p>$$<br>dux+u &#x3D; g(u)<br>$$</p><p>分离变量，积分可得</p><p>$$<br>\int{\frac{du}{g(u)-u}}&#x3D;\int{\frac{dx}{x}}+C&#x3D;\ln({|x|})+C<br>$$</p><h2 id="一阶线性微分方程"><a href="#一阶线性微分方程" class="headerlink" title="一阶线性微分方程"></a>一阶线性微分方程</h2><p>对于一阶线性微分方程</p><p>$$<br>y^{(1)}+p(x)y&#x3D;q(x)<br>$$</p><p>其通解为</p><p>$$<br>y&#x3D;e^{-\int{p(x)dx}}[\int{q(x)e^{\int{p(x)dx}}dx}+C]<br>$$</p><h2 id="二阶常系数齐次微分方程"><a href="#二阶常系数齐次微分方程" class="headerlink" title="二阶常系数齐次微分方程"></a>二阶常系数齐次微分方程</h2><p>对于<br>$$<br>y\prime\prime+py\prime+qy&#x3D;0<br>$$<br>其中p、q都是常数<br>通过构造特征方程<br>$$<br>r^2+pr+q&#x3D;0<br>$$<br>对于r的根和方程的解有以下对应关系</p><table><thead><tr><th>r根的关系</th><th>方程的解</th></tr></thead><tbody><tr><td>不相等实根 $r_1 \neq r_2$</td><td>$y&#x3D;C_1e^{r_1x}+C_2e^{r_2x}$</td></tr><tr><td>相等实根 $r_1 = r_2$</td><td>$y&#x3D;C_1e^{r_1x}+C_2xe^{r_2x}$</td></tr><tr><td>共轭复根 $r&#x3D;\alpha \pm \beta i$</td><td>$y&#x3D;C_1e^{\alpha x}cos(\beta x)+C_2e^{\alpha x}sin(\beta x)$</td></tr></tbody></table><div class="note flat"><p>可以推广到更高阶，见<strong>2025考研数学·复习全书·基础篇 P208</strong></p></div><h2 id="二阶常系数非齐次微分方程"><a href="#二阶常系数非齐次微分方程" class="headerlink" title="二阶常系数非齐次微分方程"></a>二阶常系数非齐次微分方程</h2><ul><li>首先求出其齐次形式的通解</li><li>再求非齐次的特解(化成非齐次的标准形式)</li></ul><h3 id="类型1-y-prime-prime-py-prime-qy-P-m-x-e-ax"><a href="#类型1-y-prime-prime-py-prime-qy-P-m-x-e-ax" class="headerlink" title="类型1 $y\prime\prime+py\prime+qy&#x3D;P_m(x)e^{ax}$"></a>类型1 $y\prime\prime+py\prime+qy&#x3D;P_m(x)e^{ax}$</h3><p>特解为</p><p>$$<br>y^*(x)&#x3D;e^{ax}R_m(x)x^k<br>$$<br>其中R(x)为m次多项式（系数待定），k为特征方程和a的<strong>相同个数</strong>(0,1,2)</p><h3 id="类型2-y-prime-prime-py-prime-qy-e-ax-P-m-x-cos-bx-Q-m-x-sin-bx"><a href="#类型2-y-prime-prime-py-prime-qy-e-ax-P-m-x-cos-bx-Q-m-x-sin-bx" class="headerlink" title="类型2 $y\prime\prime+py\prime+qy&#x3D;e^{ax}(P_m(x)cos(bx)+Q_m(x)sin(bx))$"></a>类型2 $y\prime\prime+py\prime+qy&#x3D;e^{ax}(P_m(x)cos(bx)+Q_m(x)sin(bx))$</h3><p>特解为</p><p>$$<br>y^*(x)&#x3D;e^{ax}{R_m(x)cos(bx)+S_m(x)sin(bx)}x^k<br>$$<br>其中R(x),S(x)为m次多项式（系数待定），k为特征方程$\alpha \pm \beta i$的 和 $a + bi$ <strong>相同个数</strong>(0,1)</p><h3 id="可降阶方程"><a href="#可降阶方程" class="headerlink" title="可降阶方程"></a>可降阶方程</h3><ul><li><p>没有y和$y\prime$，直接两次积分即可</p></li><li><p>没有y，$y\prime\prime&#x3D;f(x,y\prime)$<br>令$p(x)&#x3D;y\prime,y\prime\prime&#x3D;\frac{dp}{dx}$,有<br>$$<br>\frac{dp}{dx}&#x3D;f(x,p)<br>$$<br>正常积分即可</p></li><li><p>没有x，$y\prime\prime&#x3D;f(y,y\prime)$<br>令$p(y)&#x3D;y\prime,y\prime\prime&#x3D;\frac{dp}{dx}&#x3D;\frac{dp}{dy}\frac{dy}{dx}&#x3D;p\frac{dp}{dy}$,有<br>$$<br>p\frac{dp}{dy}&#x3D;f(y,p)<br>$$<br>正常积分即可</p></li></ul><h2 id="伯努利方程"><a href="#伯努利方程" class="headerlink" title="伯努利方程"></a>伯努利方程</h2><p>方程</p><p>$$<br>y^{(1)}+p(x)y&#x3D;q(x)y^{(n)}<br>$$</p><p>被称为伯努利方程，可以两边同时除以 $y^{(n)}$ 化为</p><p>$$<br>y^{1-n}\frac{dy}{dx}+p(x)y^{1-n}&#x3D;q(x)<br>$$</p><p>令 $z&#x3D;y^(1-n)$ 则有</p><p>$$<br>\frac{1}{1-n}\frac{dz}{dx}+p(x)z&#x3D;q(x)<br>$$</p><p>从而可以使用一阶线性微分方程求通解的方法得到z的表达式，然后再代回y即得到原微分方程的通解。</p><h2 id="全微分方程"><a href="#全微分方程" class="headerlink" title="全微分方程"></a>全微分方程</h2><p>对于</p><p>$$<br>du(x,y)&#x3D;P(x,y)dx+Q(x,y)dy<br>$$</p><p>称 $P(x,y)dx+Q(x,y)dy&#x3D;0$ 为全微分方程，通解为 $u(x,y)&#x3D;C$ 。</p><div class="note flat"><p>设D为平面上的一个单连通区域，P和Q在D上连续且有连续的一阶偏导数，则全微分方程成立的充要条件是<br>$$<br>\frac{\partial{P}}{\partial{y}}&#x3D;\frac{\partial{Q}}{\partial{x}}<br>$$</p></div><h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><ul><li>偏积分</li></ul><p>$$<br>du(x,y)&#x3D;P(x,y)dx+Q(x,y)dy<br>$$</p><p>如果P和Q不确定，可以通过充要条件，确定P和Q。<br>然后两边对x积分 ，可以得到<br>$$<br>u(x,y) &#x3D; \int{Pdx} + C(y)<br>$$<br>其中C(y)是在u对x求偏导的时候被当做了常数，这个时候 u对y求偏导就可以得到 Q，可以得出C(y)的表达式，然后代入到上面的u的表达式，即可得到u(x,y)&#x3D;0 这个解</p><ul><li>折线法</li></ul><p>$$<br>\because \int{du(x,y)}&#x3D;\int{P(x,y)dx+Q(x,y)dy}<br>$$<br>$$<br>\because \frac{\partial{P}}{\partial{y}}&#x3D;\frac{\partial{Q}}{\partial{x}}<br>$$<br>$$<br>\therefore 与路径无关，从(0,0)\rightarrow(x,0)\rightarrow(x,y)<br>$$<br>$$<br>\therefore \int_{(0,0)}^{(x,y)}{du(x,y)}&#x3D;\int{P(x,y)dx+Q(x,y)dy}<br>$$<br>$$<br>\int_{(0,0)}^{(x,y)}{du(x,y)}&#x3D;\int_{(0,0)}^{(x,0)}{P(x,y)dx}+{\int_{(x,0)}^{(x,y)}Q(x,y)dy}<br>$$</p><h2 id="欧拉方程"><a href="#欧拉方程" class="headerlink" title="欧拉方程"></a>欧拉方程</h2><p>$$<br>\frac{d^2y}{dx^2}+a_1x\frac{dy}{dx}+a_2y&#x3D;f(x)<br>$$<br>被称为欧拉方程。</p><h3 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h3><p>若 x&gt;0 ，可令 $x&#x3D;e^t$做变量代换，有$t&#x3D;lnx$,$\frac{dt}{dx}&#x3D;\frac{1}{x}$,$\frac{dy}{dx}&#x3D;\frac{dy}{dt}\frac{dt}{dx}&#x3D;\frac{1}{x}\frac{dy}{dt}$<br>$\frac{d^2y}{dx^2}&#x3D;-\frac{1}{x^2}\frac{dy}{dt}+\frac{1}{x^2}\frac{d^2y}{dt^2}$<br>$$<br>\frac{d^2y}{dt^2}+(a_1-1)\frac{dy}{dt}+a_2y&#x3D;f(e^t)<br>$$<br>是常系数微分方程的形式，解得y和t，然后换元回来即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 考研 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>那些年我使用Github搭建一个Hexo博客的事</title>
       <link href="/posts/4a17b156.html"/>
       <url>/posts/4a17b156.html</url>
