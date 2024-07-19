@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>关于在Butterfly自定义样式的猜想</title>
+      <link href="/posts/16f2d8ad.html"/>
+      <url>/posts/16f2d8ad.html</url>
+      
+        <content type="html"><![CDATA[<div class="note flat"><p>虽然有着Butterfly这样很好看的主题，但是对于我这样的喜欢<del>没事找事</del>的人来说，肯定要来一点点自己的设置，允许自己来<del><mark class="hl-label green">破坏</mark> Butterfly的一致性</del>。</p></div><h2 id="想法起源"><a href="#想法起源" class="headerlink" title="想法起源"></a>想法起源</h2><p>每次打开<mark class="hl-label blue">VSC</mark> 都是 <code>hexo n page</code> 或者 <code>hexo n post</code><br>基于程序员的自我折腾性，我想既然给了page这样新建不同路径的命令，那么就不可能就依靠 <mark class="hl-label green">page</mark>  这一个样式来强迫统一所有的UI。<br>那么，一定存在着某个方法，可以让我在Butterfly的主题下进行自己的<del>创造</del>乱改。</p><h2 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h2><p><strong>注意到</strong>，在博客源文件的根目录下的 <mark class="hl-label default">source</mark> 文件夹存在 <mark class="hl-label default">_posts</mark> 文件，我们写的md文档都会存在这里面。</p><p>由此想到，会不会在 <mark class="hl-label default">themes</mark> 这个管理主题下面会有管理样式的相关文件。</p><p><img src="/posts/16f2d8ad/image.png" alt="主题目录"></p><p><del>以过了六级的英语</del> 易知，<mark class="hl-label default">layout</mark>  文件夹下面存放的就是相关的布局文件。</p><p>打开文件夹就可以看见诸如 <mark class="hl-label default">archive</mark> ，<mark class="hl-label default">page</mark> ，<mark class="hl-label default">post</mark> 等眼熟的单词，直觉中打开 <mark class="hl-label default">page.pug</mark> 后，有以下文件内容</p><figure class="highlight js"><figcaption><span>page.pug</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extends</span> includes/layout.<span class="property">pug</span></span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  #page</span><br><span class="line">    <span class="keyword">if</span> top_img === <span class="literal">false</span></span><br><span class="line">      h1.<span class="property">page</span>-title= page.<span class="property">title</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> page.<span class="property">type</span></span><br><span class="line">      when <span class="string">&#x27;tags&#x27;</span></span><br><span class="line">        include includes/page/tags.<span class="property">pug</span></span><br><span class="line">      when <span class="string">&#x27;link&#x27;</span></span><br><span class="line">        include includes/page/flink.<span class="property">pug</span></span><br><span class="line">      when <span class="string">&#x27;categories&#x27;</span></span><br><span class="line">        include includes/page/categories.<span class="property">pug</span></span><br><span class="line">      <span class="keyword">default</span></span><br><span class="line">        include includes/page/<span class="keyword">default</span>-page.<span class="property">pug</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> page.<span class="property">comments</span> !== <span class="literal">false</span> &amp;&amp; theme.<span class="property">comments</span> &amp;&amp; theme.<span class="property">comments</span>.<span class="property">use</span></span><br><span class="line">      - <span class="keyword">var</span> commentsJsLoad = <span class="literal">true</span></span><br><span class="line">      !=<span class="title function_">partial</span>(<span class="string">&#x27;includes/third-party/comments/index&#x27;</span>, &#123;&#125;, &#123;<span class="attr">cache</span>: <span class="literal">true</span>&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>可以看到一些在初步配置 Butterfly 的眼熟的结构。<mark class="hl-label green">page.type</mark>  似乎获得的就是 在 <a href="/tags/">标签</a> 和 <a href="/categories/">分类</a> 中配置的 <mark class="hl-label green">type</mark> </p><p>所以我可以在后面添加一行属于我的 <mark class="hl-label green">type</mark> </p><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">case page.type</span><br><span class="line">    when &#x27;tags&#x27;</span><br><span class="line">        include includes/page/tags.pug</span><br><span class="line">    when &#x27;link&#x27;</span><br><span class="line">        include includes/page/flink.pug</span><br><span class="line">    when &#x27;categories&#x27;</span><br><span class="line">        include includes/page/categories.pug</span><br><span class="line"><span class="addition">+    when &#x27;lnpbqc&#x27;</span></span><br><span class="line"><span class="addition">+        include includes/page/lnpbqc.pug</span></span><br><span class="line">    default</span><br><span class="line">        include includes/page/default-page.pug</span><br></pre></td></tr></table></figure><p>由此就在 <code>hexo n page</code>后在 <mark class="hl-label green">Page Front-matter</mark>  中指定 <mark class="hl-label green">type</mark> 为 <mark class="hl-label default">lnpbqc</mark> 即可。</p><p>这样，所有关于 type 是lnpbqc 的页面样式就是自定义的了。</p><h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><p>至于如何写样式，则需要通过 <a href="https://butterfly.js.org/posts/ceeb73f/?highlight=inject#Inject">CSS和JS注入</a> + <a href="https://www.pugjs.cn/language/attributes">Pugjs</a> 来完成。</p><p>本文的目的到此结束，剩下的就需要你自己去学习、去实践、去创造了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 搭建博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Butterfly </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>微分方程如何解题呢？</title>
       <link href="/posts/2f28f7d1.html"/>
       <url>/posts/2f28f7d1.html</url>
