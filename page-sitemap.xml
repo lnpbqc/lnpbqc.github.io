@@ -11,7 +11,16 @@
     
     <url>
         <loc>http://blog.lnpbqc.online/music/</loc>
-        <lastmod>2024-08-21T06:46:23.469Z</lastmod>
+        <lastmod>2025-04-02T08:28:24.295Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://blog.lnpbqc.online/memory/</loc>
+        <lastmod>2024-12-01T07:44:42.318Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
