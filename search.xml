@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>有哪些RELU</title>
+      <link href="/posts/3e18f1cc.html"/>
+      <url>/posts/3e18f1cc.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>好多的ReLU函数，我该怎么去选择呢？？？？？？？？？？？？？<br>下面这些可能会有所帮助</p></blockquote><hr><h3 id="标准ReLU"><a href="#标准ReLU" class="headerlink" title="标准ReLU"></a>标准ReLU</h3><p>标准 ReLU 函数：</p><p>$$<br>f(x) &#x3D; max(0, x)<br>$$</p><p>好处：收敛快、计算简单。</p><p>问题：当输入为负时，输出恒为 0 → 神经元可能“死掉”（梯度始终为 0，无法更新）。</p><h3 id="LReLU"><a href="#LReLU" class="headerlink" title="LReLU"></a>LReLU</h3><p>公式：</p><p>$$<br>f(x) &#x3D; max(\alpha x, x)<br>$$</p><blockquote><p>其中 <code>𝛼</code>是一个 固定的小常数（通常取 0.01）。</p></blockquote><p>特点：负数区域仍然有一个很小的斜率，不会完全归零。</p><p>好处：缓解神经元死亡问题，但超参数 <code>𝛼</code> 需要<strong>人为设置</strong>。</p><h3 id="PReLU"><a href="#PReLU" class="headerlink" title="PReLU"></a>PReLU</h3><p>PReLU 的公式如下：</p><p>$$<br>f(x) &#x3D; max(\alpha x, x)<br>$$</p><p>看起来和 Leaky ReLU (LReLU) 一样，但最大不同点是：</p><blockquote><p>𝛼 不是固定的常数，而是一个<strong>需要学习</strong>的参数，和网络权重一起通过反向传播更新。</p></blockquote><h3 id="RReLU"><a href="#RReLU" class="headerlink" title="RReLU"></a>RReLU</h3><p>公式：<br>$$<br>f(x) &#x3D; max(\alpha x, x)<br>$$</p><p>不同之处在于：</p><blockquote><p><strong>训练时</strong>：<br>𝛼不是固定的，而是 从一个区间 $[l,\mu]$（例如 0.1–0.3）随机采样。</p></blockquote><blockquote><p><strong>测试时</strong>：<br>取 $\alpha &#x3D; \frac{l+u}{2}$ 作为固定值。</p></blockquote><p>好处：</p><p>引入随机性，相当于一种正则化（regularization），能减少过拟合。</p><p>更适合小数据集的训练。</p><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table><thead><tr><th>激活函数</th><th>负区间斜率</th><th>取值方式</th><th>特点</th></tr></thead><tbody><tr><td><strong>ReLU</strong></td><td>0</td><td>固定</td><td>可能“神经元死亡”</td></tr><tr><td><strong>LReLU</strong></td><td>小常数 (如 0.01)</td><td>手动设定</td><td>缓解死亡问题</td></tr><tr><td><strong>PReLU</strong></td><td>区间内随机取值</td><td>训练中自动优化</td><td>更灵活，性能往往优于 LReLU</td></tr><tr><td><strong>RReLU</strong></td><td>可学习参数</td><td>训练时随机，测试时均值</td><td>正则化效果，适合小数据集</td></tr></tbody></table><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li>浅层网络在分类器时，<code>sigmoid</code> 函数及其组合通常效果更好。</li><li>由于梯度消失问题，有时要避免使用 <code>sigmoid</code> 和 <code>tanh</code> 函数。</li><li><code>relu</code> 函数是一个通用的激活函数，目前在大多数情况下使用。</li><li>如果神经网络中出现死神经元，那么 <code>prelu</code> 函数就是最好的选择。</li><li><code>relu</code> 函数只能在隐藏层中使用。</li><li>通常，可以从 <code>relu</code> 函数开始，如果 <code>relu</code> 函数没有提供最优结果，再尝试其他激活函数。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DeepLearning </tag>
+            
+            <tag> 激活函数 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Springboot自动配置原理</title>
       <link href="/posts/e2152e23.html"/>
       <url>/posts/e2152e23.html</url>
