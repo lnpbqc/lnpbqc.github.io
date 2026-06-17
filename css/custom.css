@@ -1,3 +1,45 @@
-/* p{
-    text-indent: 2rem;
-} */
+.lnpbqc-camera {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: var(--card-bg, #fff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.lnpbqc-camera-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.lnpbqc-camera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.lnpbqc-camera-card {
+  padding: 1rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.lnpbqc-camera-card:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.lnpbqc-camera-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lnpbqc-camera-value {
+  font-size: 1rem;
+  font-weight: 600;
+  word-break: break-word;
+}

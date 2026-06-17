@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://blog.lnpbqc.online/</loc>
+        <loc>http://lnpbqc.github.io/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
@@ -10,7 +10,79 @@
     
     
     <url>
-        <loc>http://blog.lnpbqc.online/music/</loc>
+        <loc>http://lnpbqc.github.io/thoughts/</loc>
+        <lastmod>2026-06-17T11:13:50.334Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/link/</loc>
+        <lastmod>2026-06-17T11:13:50.333Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/tags/</loc>
+        <lastmod>2026-06-17T11:13:50.333Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/dev/</loc>
+        <lastmod>2026-06-17T11:13:50.197Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/features/</loc>
+        <lastmod>2026-06-17T11:13:50.197Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/categories/</loc>
+        <lastmod>2026-06-17T11:13:50.195Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/camera/</loc>
+        <lastmod>2026-06-17T11:13:50.194Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/camera/ohmygirl.html</loc>
+        <lastmod>2026-06-17T11:13:50.194Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/music/</loc>
         <lastmod>2025-04-02T08:28:24.295Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -19,44 +91,8 @@
     
     
     <url>
-        <loc>http://blog.lnpbqc.online/features/%25E9%259A%258F%25E6%259C%25BA%25E5%259B%25BE%25E7%2589%2587.html</loc>
+        <loc>http://lnpbqc.github.io/features/%25E9%259A%258F%25E6%259C%25BA%25E5%259B%25BE%25E7%2589%2587.html</loc>
         <lastmod>2024-08-21T06:42:20.808Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://blog.lnpbqc.online/features/</loc>
-        <lastmod>2024-07-19T11:51:13.900Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://blog.lnpbqc.online/link/</loc>
-        <lastmod>2024-07-19T01:23:55.910Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://blog.lnpbqc.online/tags/</loc>
-        <lastmod>2024-07-17T05:42:42.267Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>http://blog.lnpbqc.online/categories/</loc>
-        <lastmod>2024-07-17T05:42:32.211Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
