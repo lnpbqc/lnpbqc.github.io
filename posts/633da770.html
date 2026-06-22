@@ -1,0 +1,979 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SpringCloud的OpenFeign使用简析 | lnpbqc</title><meta name="author" content="lnpbqc"><meta name="copyright" content="lnpbqc"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何在SpringCloud里使用OpenFeign进行微服务之间的远程调用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud的OpenFeign使用简析">
+<meta property="og:url" content="http://lnpbqc.github.io/posts/633da770.html">
+<meta property="og:site_name" content="lnpbqc">
+<meta property="og:description" content="如何在SpringCloud里使用OpenFeign进行微服务之间的远程调用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bing.img.run/rand.php">
+<meta property="article:published_time" content="2026-06-17T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-17T10:00:00.000Z">
+<meta property="article:author" content="lnpbqc">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="OpenFeign">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bing.img.run/rand.php"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SpringCloud的OpenFeign使用简析",
+  "url": "http://lnpbqc.github.io/posts/633da770.html",
+  "image": "https://bing.img.run/rand.php",
+  "datePublished": "2026-06-17T10:00:00.000Z",
+  "dateModified": "2026-06-17T10:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "lnpbqc",
+      "url": "http://lnpbqc.github.io/lnpbqc.online"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://lnpbqc.github.io/posts/633da770.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><meta name="google-site-verification" content="CLyJ6Rj-l83kuWMPAnUEA7a34QcC29g8aoF5fJsDMGY"/><meta name="baidu-site-verification" content="codeva-26C3aU0Tvi"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-4CXLQJSF6T"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-4CXLQJSF6T')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-4CXLQJSF6T', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":20,"languages":{"author":"作者: lnpbqc","link":"链接: ","source":"来源: lnpbqc","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'medium-zoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SpringCloud的OpenFeign使用简析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/cursor.css"><link rel="stylesheet" href="/css/custom.css"><meta name="google-site-verification" content="CLyJ6Rj-l83kuWMPAnUEA7a34QcC29g8aoF5fJsDMGY" /><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/img/site_background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://b0.bdstatic.com/26b069d597f203f6a23513ffbf5c3d00.jpg@h_1280" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">25</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/random/"><i class="fa-fw fas fa-bus fa-rocket"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/thoughts/"><i class="fa-fw fas fa-book"></i><span> 随想</span></a></li><li><a class="site-page child" href="/features/"><i class="fa-fw fa-solid fa-hashtag"></i><span> 更新特点</span></a></li><li><a class="site-page child" href="/features/%E9%9A%8F%E6%9C%BA%E5%9B%BE%E7%89%87"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/camera/"><i class="fa-fw fas fa-camera"></i><span> 摄影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/dev/"><i class="fa-fw fas fa-bolt"></i><span> 试验特性</span></a></div><div class="menus_item"><a class="site-page" href="/sitemap.xml"><i class="fa-fw sitemap"></i><span> 站点图</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://bing.img.run/rand.php);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">lnpbqc</span></a><a class="nav-page-title" href="/"><span class="site-name">SpringCloud的OpenFeign使用简析</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/random/"><i class="fa-fw fas fa-bus fa-rocket"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 存档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 其他</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/thoughts/"><i class="fa-fw fas fa-book"></i><span> 随想</span></a></li><li><a class="site-page child" href="/features/"><i class="fa-fw fa-solid fa-hashtag"></i><span> 更新特点</span></a></li><li><a class="site-page child" href="/features/%E9%9A%8F%E6%9C%BA%E5%9B%BE%E7%89%87"><i class="fa-fw fas fa-image"></i><span> 随机图片</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/camera/"><i class="fa-fw fas fa-camera"></i><span> 摄影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/dev/"><i class="fa-fw fas fa-bolt"></i><span> 试验特性</span></a></div><div class="menus_item"><a class="site-page" href="/sitemap.xml"><i class="fa-fw sitemap"></i><span> 站点图</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">SpringCloud的OpenFeign使用简析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-17T10:00:00.000Z" title="发表于 2026-06-17 18:00:00">2026-06-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-17T10:00:00.000Z" title="更新于 2026-06-17 18:00:00">2026-06-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/SpringCloud/">SpringCloud</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/SpringCloud/OpenFeign/">OpenFeign</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/633da770.html#post-comment"><span class="gitalk-comment-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:30,&quot;messagePrev&quot;:&quot;该博客更新于&quot;,&quot;messageNext&quot;:&quot;天前，请参照最新信息阅读。&quot;,&quot;postUpdate&quot;:&quot;2026-06-17 18:00:00&quot;}" hidden></div><h1 id="OpenFeign"><a href="#OpenFeign" class="headerlink" title="OpenFeign"></a>OpenFeign</h1><h2 id="为什么需要-OpenFeign？"><a href="#为什么需要-OpenFeign？" class="headerlink" title="为什么需要 OpenFeign？"></a>为什么需要 OpenFeign？</h2><p>在微服务架构中，一个服务经常需要调用另一个服务。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">订单服务(Order)</span><br><span class="line">      │</span><br><span class="line">      │ HTTP请求</span><br><span class="line">      ▼</span><br><span class="line">商品服务(Product)</span><br></pre></td></tr></table></figure>
+
+<p>最开始我们一般使用 <code>RestTemplate</code>  调用。</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;http://shop-product-server/products/&quot;</span> + pid;</span><br><span class="line"><span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> restTemplate.getForObject(url, Product.class);</span><br></pre></td></tr></table></figure>
+
+<p>虽然能够完成远程调用，但是存在很多问题：</p>
+<ul>
+<li>需要自己拼接URL</li>
+<li>请求参数需要自己维护</li>
+<li>HTTP请求细节全部自己处理</li>
+<li>每个接口都需要写一遍，代码重复</li>
+<li>可读性较差</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">restTemplate.getForObject(</span><br><span class="line">        <span class="string">&quot;http://shop-product-server/products/&quot;</span> + pid,</span><br><span class="line">        Product.class</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>如果整个系统有几百个远程接口，维护成本会越来越高。</p>
+<p>因此 Spring Cloud 提供了 <strong>OpenFeign</strong>。</p>
+<h2 id="什么是-OpenFeign？"><a href="#什么是-OpenFeign？" class="headerlink" title="什么是 OpenFeign？"></a>什么是 OpenFeign？</h2><p>OpenFeign 是 Spring Cloud 官方提供的 <strong>声明式 HTTP 客户端（Declarative HTTP Client）</strong>。</p>
+<p>它最大的特点就是：</p>
+<blockquote>
+<p><strong>像调用本地方法一样调用远程服务。</strong></p>
+</blockquote>
+<p>以前：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">restTemplate.getForObject(...)</span><br></pre></td></tr></table></figure>
+
+<p>现在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">productApi.getProductByPid(pid);</span><br></pre></td></tr></table></figure>
+
+<p>开发者只需要定义接口，不需要关心：</p>
+<ul>
+<li>URL拼接</li>
+<li>HTTP请求发送</li>
+<li>JSON转换</li>
+<li>服务发现</li>
+<li>负载均衡</li>
+</ul>
+<p>全部由 OpenFeign 自动完成。</p>
+<blockquote>
+<p><strong>OpenFeign &#x3D; HTTP客户端 + 服务发现 + Ribbon(旧版本)&#x2F;Spring Cloud LoadBalancer + 接口代理。</strong></p>
+</blockquote>
+<h2 id="OpenFeign-的优点"><a href="#OpenFeign-的优点" class="headerlink" title="OpenFeign 的优点"></a>OpenFeign 的优点</h2><p>相比 RestTemplate：</p>
+<p>✔ 代码更加简洁</p>
+<p>✔ 面向接口编程</p>
+<p>✔ 自动服务发现</p>
+<p>✔ 自动负载均衡</p>
+<p>✔ 支持请求拦截器</p>
+<p>✔ 支持超时配置</p>
+<p>✔ 支持日志</p>
+<p>✔ 支持降级(Fallback)</p>
+<p>✔ 与 SpringMVC 注解完全兼容</p>
+<h2 id="OpenFeign-工作流程"><a href="#OpenFeign-工作流程" class="headerlink" title="OpenFeign 工作流程"></a>OpenFeign 工作流程</h2><p>调用流程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">OrderService</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">ProductFeignApi（接口）</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">Feign动态代理对象</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">LoadBalancer</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">Nacos获取实例列表</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">选择一个Product服务</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">HTTP请求</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">返回JSON</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">自动转换成Product对象</span><br></pre></td></tr></table></figure>
+
+<p>所以开发者实际上调用的是<strong>代理对象</strong>。</p>
+<hr>
+<h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>OpenFeign 只需要在 <strong>服务消费者</strong> 引入依赖即可。</p>
+<p>例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<p>OpenFeign 只需要加在调用别人服务的项目中。</p>
+<p>服务提供者无需添加。</p>
+</blockquote>
+<h2 id="开启-Feign"><a href="#开启-Feign" class="headerlink" title="开启 Feign"></a>开启 Feign</h2><p>启动类增加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="meta">@EnableFeignClients</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShopOrderServerApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(ShopOrderServerApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@EnableFeignClients</span><br></pre></td></tr></table></figure>
+
+<p>作用：</p>
+<p>扫描所有 <code>@FeignClient</code> 接口，并生成代理对象放入 Spring 容器。</p>
+<p>默认扫描：<code>当前启动类所在包</code></p>
+<p>如果<strong>接口不在当前包下</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients(basePackages = &quot;com.gec.shoporderserver.api&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="定义-Feign-接口"><a href="#定义-Feign-接口" class="headerlink" title="定义 Feign 接口"></a>定义 Feign 接口</h2><p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name = &quot;shop-product-server&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ProductApi</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line">    Product <span class="title function_">getProductByPid</span><span class="params">(<span class="meta">@PathVariable(&quot;pid&quot;)</span> Long pid)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：<code>name</code> 就是 Nacos 注册中心中的服务名称。</p>
+<p>例如：<code>shop-product-server</code></p>
+<p>不要写：<code>localhost</code>,<code>127.0.0.1</code>,<code>IP地址</code>。否则不会经过注册中心。</p>
+<h2 id="调用-Feign"><a href="#调用-Feign" class="headerlink" title="调用 Feign"></a>调用 Feign</h2><p>以前：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span></span><br><span class="line">restTemplate.getForObject(</span><br><span class="line"><span class="string">&quot;http://shop-product-server/products/&quot;</span>+pid,</span><br><span class="line">Product.class</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>现在：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ProductApi productApi;</span><br></pre></td></tr></table></figure>
+
+<p>直接调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> productApi.getProductByPid(pid);</span><br></pre></td></tr></table></figure>
+
+<p>是不是和调用本地方法完全一样。</p>
+<h2 id="OpenFeign-参数传递"><a href="#OpenFeign-参数传递" class="headerlink" title="OpenFeign 参数传递"></a>OpenFeign 参数传递</h2><p>OpenFeign 使用 SpringMVC 注解描述 HTTP 请求，因此参数写法与 Controller 保持一致。</p>
+<h3 id="路径参数"><a href="#路径参数" class="headerlink" title="路径参数"></a>路径参数</h3><p>Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Product <span class="title function_">get</span><span class="params">(<span class="meta">@PathVariable</span> Long pid)</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(<span class="meta">@PathVariable(&quot;pid&quot;)</span> Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>必须写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PathVariable(&quot;pid&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>不能省略变量名，否则可能出现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">404</span><br></pre></td></tr></table></figure>
+
+<h3 id="普通参数"><a href="#普通参数" class="headerlink" title="普通参数"></a>普通参数</h3><p>Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Product <span class="title function_">get</span><span class="params">(Long pid)</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(<span class="meta">@RequestParam(&quot;pid&quot;)</span> Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>必须</strong>写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestParam</span><br></pre></td></tr></table></figure>
+
+<p>否则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="对象参数（POST）"><a href="#对象参数（POST）" class="headerlink" title="对象参数（POST）"></a>对象参数（POST）</h3><p>Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/product&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">save</span><span class="params">(<span class="meta">@RequestBody</span> Product product)</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/product&quot;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">save</span><span class="params">(<span class="meta">@RequestBody</span> Product product)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<br><strong>Controller 与 Feign 都必须写：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestBody</span><br></pre></td></tr></table></figure>
+
+<p>否则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">接收不到参数</span><br></pre></td></tr></table></figure>
+
+<h3 id="GET-对象参数"><a href="#GET-对象参数" class="headerlink" title="GET 对象参数"></a>GET 对象参数</h3><p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET</span><br><span class="line">/products?name=iphone&amp;price=<span class="number">6000</span></span><br></pre></td></tr></table></figure>
+
+<p>推荐：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br><span class="line">List&lt;Product&gt; <span class="title function_">list</span><span class="params">(<span class="meta">@SpringQueryMap</span> ProductQuery query)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>自动转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name=iphone</span><br><span class="line">price=6000</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当然这里按照之前的使用<code>@RequestParam</code>进行获取</p>
+</blockquote>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><p>Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line">String <span class="title function_">upload</span><span class="params">(<span class="meta">@RequestPart</span> MultipartFile file)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line">String <span class="title function_">upload</span><span class="params">(<span class="meta">@RequestPart(&quot;file&quot;)</span> MultipartFile file)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>必须使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@RequestPart</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Feign-工作原理"><a href="#Feign-工作原理" class="headerlink" title="Feign 工作原理"></a>Feign 工作原理</h2><p>OpenFeign 底层主要做了三件事情。</p>
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>扫描：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient</span><br></pre></td></tr></table></figure>
+
+<p>生成代理对象。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProductApi</span><br></pre></td></tr></table></figure>
+
+<p>最终变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProductApiProxy</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>解析：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping</span><br><span class="line">@PostMapping</span><br></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请求方式</span><br><span class="line">URL</span><br><span class="line">参数</span><br><span class="line">Header</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>底层使用 HTTP 客户端发送请求。</p>
+<p>默认可以使用：</p>
+<ul>
+<li>HttpURLConnection</li>
+<li>Apache HttpClient</li>
+<li>OkHttp</li>
+</ul>
+<p>返回 JSON 后自动转换成 Java 对象。</p>
+<h2 id="OpenFeign-超时配置"><a href="#OpenFeign-超时配置" class="headerlink" title="OpenFeign 超时配置"></a>OpenFeign 超时配置</h2><p>默认超时时间较短，开发阶段建议适当调大。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">openfeign:</span></span><br><span class="line">      <span class="attr">client:</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">          <span class="attr">default:</span></span><br><span class="line">            <span class="attr">connectTimeout:</span> <span class="number">5000</span></span><br><span class="line">            <span class="attr">readTimeout:</span> <span class="number">5000</span></span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p><code>connectTimeout</code>: 连接服务器时间。</p>
+<p><code>readTimeout</code>: 服务器返回数据时间。</p>
+<h2 id="Feign-日志"><a href="#Feign-日志" class="headerlink" title="Feign 日志"></a>Feign 日志</h2><p>默认 Feign 不打印请求日志。</p>
+<p>开启：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span></span><br><span class="line">    <span class="attr">com.gec.shoporderserver.api:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+<p>然后配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FeignConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Logger.Level <span class="title function_">feignLoggerLevel</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Logger.Level.FULL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以参考 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://cloud.spring.io/spring-cloud-openfeign/2.2.x/reference/html/#feign-logging">SpringCloud Feign Looging</a></p>
+</blockquote>
+<h2 id="Feign-请求拦截器"><a href="#Feign-请求拦截器" class="headerlink" title="Feign 请求拦截器"></a>Feign 请求拦截器</h2><p>例如统一添加 Token。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FeignConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RequestInterceptor <span class="title function_">requestInterceptor</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> template -&gt; &#123;</span><br><span class="line"></span><br><span class="line">            template.header(<span class="string">&quot;token&quot;</span>,<span class="string">&quot;123456&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以后所有 Feign 请求都会携带：<code>token:123456</code>。</p>
+<p>常用于：</p>
+<ul>
+<li>JWT</li>
+<li>Token</li>
+<li>TraceId</li>
+<li>用户信息</li>
+</ul>
+<h2 id="Fallback（兜底回调）"><a href="#Fallback（兜底回调）" class="headerlink" title="Fallback（兜底回调）"></a>Fallback（兜底回调）</h2><p>微服务调用过程中，如果被调用服务：</p>
+<ul>
+<li>宕机</li>
+<li>网络异常</li>
+<li>超时</li>
+<li>服务不可用</li>
+</ul>
+<p>那么可以返回一个默认结果，而不是直接抛异常。</p>
+<p>这就是 <strong>服务降级（Fallback）</strong>。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">订单服务</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">商品服务（挂了）</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">Fallback</span><br><span class="line">      │</span><br><span class="line">      ▼</span><br><span class="line">返回默认商品</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="定义-Fallback-类"><a href="#定义-Fallback-类" class="headerlink" title="定义 Fallback 类"></a>定义 Fallback 类</h3><p>即实现之前定义的FeignClient的接口即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductApiFallback</span> <span class="keyword">implements</span> <span class="title class_">ProductApi</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Product <span class="title function_">getProductByPid</span><span class="params">(Long pid)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Product</span> <span class="variable">product</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>();</span><br><span class="line">        product.setId(pid);</span><br><span class="line">        product.setName(<span class="string">&quot;默认商品&quot;</span>);</span><br><span class="line">        product.setPrice(BigDecimal.ZERO);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Feign-指定-fallback"><a href="#Feign-指定-fallback" class="headerlink" title="Feign 指定 fallback"></a>Feign 指定 fallback</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(</span></span><br><span class="line"><span class="meta">        name=&quot;shop-product-server&quot;,</span></span><br><span class="line"><span class="meta">        fallback = ProductApiFallback.class</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ProductApi</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line">    Product <span class="title function_">getProductByPid</span><span class="params">(<span class="meta">@PathVariable(&quot;pid&quot;)</span> Long pid)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当调用失败时, 不会抛异常, 直接执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ProductApiFallback</span><br></pre></td></tr></table></figure>
+
+<h3 id="FallbackFactory（推荐）"><a href="#FallbackFactory（推荐）" class="headerlink" title="FallbackFactory（推荐）"></a>FallbackFactory（推荐）</h3><p>相比普通 Fallback, 可以拿到异常信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Sfl4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductFallbackFactory</span></span><br><span class="line">        <span class="keyword">implements</span> <span class="title class_">FallbackFactory</span>&lt;ProductApi&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ProductApi <span class="title function_">create</span><span class="params">(Throwable cause)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> pid -&gt; &#123;</span><br><span class="line"></span><br><span class="line">            log.info(<span class="string">&quot;msg: &#123;&#125;&quot;</span>,cause.getMessage());</span><br><span class="line"></span><br><span class="line">            <span class="type">Product</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Product</span>();</span><br><span class="line">            p.setId(pid);</span><br><span class="line">            p.setName(<span class="string">&quot;默认商品&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(</span></span><br><span class="line"><span class="meta">        name=&quot;shop-product-server&quot;,</span></span><br><span class="line"><span class="meta">        fallbackFactory = ProductFallbackFactory.class</span></span><br><span class="line"><span class="meta">)</span></span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<p>✔ 可以记录日志</p>
+<p>✔ 可以知道失败原因</p>
+<p>✔ 更方便排查问题</p>
+<h2 id="OpenFeign-常见错误"><a href="#OpenFeign-常见错误" class="headerlink" title="OpenFeign 常见错误"></a>OpenFeign 常见错误</h2><h3 id="1、服务名错误"><a href="#1、服务名错误" class="headerlink" title="1、服务名错误"></a>1、服务名错误</h3><p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name=&quot;product&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>实际需要：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name=&quot;shop-product-server&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Load balancer does not have available server</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、接口路径错误"><a href="#2、接口路径错误" class="headerlink" title="2、接口路径错误"></a>2、接口路径错误</h3><p>Feign：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/product&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>Controller：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">404 Not Found</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3、没有写-PathVariable"><a href="#3、没有写-PathVariable" class="headerlink" title="3、没有写 @PathVariable"></a>3、没有写 @PathVariable</h3><p>错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>正确：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products/&#123;pid&#125;&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(<span class="meta">@PathVariable(&quot;pid&quot;)</span> Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、没有写-RequestParam"><a href="#4、没有写-RequestParam" class="headerlink" title="4、没有写 @RequestParam"></a>4、没有写 @RequestParam</h3><p>错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>正确：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/products&quot;)</span></span><br><span class="line">Product <span class="title function_">get</span><span class="params">(<span class="meta">@RequestParam(&quot;pid&quot;)</span> Long pid)</span>;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5、对象没有-RequestBody"><a href="#5、对象没有-RequestBody" class="headerlink" title="5、对象没有 @RequestBody"></a>5、对象没有 @RequestBody</h3><p>错误：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save(Product product);</span><br></pre></td></tr></table></figure>
+
+<p>正确：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">save(<span class="meta">@RequestBody</span> Product product);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="6、没有开启-Feign"><a href="#6、没有开启-Feign" class="headerlink" title="6、没有开启 Feign"></a>6、没有开启 Feign</h3><p>在微服务的主启动类缺少注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients</span></span><br></pre></td></tr></table></figure>
+
+<p>报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">No qualifying bean of type ProductApi</span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenFeign-最佳实践"><a href="#OpenFeign-最佳实践" class="headerlink" title="OpenFeign 最佳实践"></a>OpenFeign 最佳实践</h2><ol>
+<li>Feign 接口建议单独抽取到 <code>api</code> 模块，方便多个服务复用。</li>
+<li><code>@FeignClient(name = &quot;...&quot;)</code> 中的 <code>name</code> 必须与注册中心服务名一致。</li>
+<li>接口路径、HTTP 方法、参数注解要与服务提供者完全一致。</li>
+<li>优先使用 <code>FallbackFactory</code>，便于获取异常信息和记录日志。</li>
+<li>根据业务场景合理设置 <code>connectTimeout</code> 与 <code>readTimeout</code>，避免请求长时间阻塞。</li>
+<li>开发阶段可开启 <code>FULL</code> 日志，生产环境建议使用 <code>BASIC</code> 或关闭日志，减少性能开销。</li>
+<li>不建议在 Feign 接口中编写业务逻辑，Feign 仅负责远程调用。</li>
+<li>在 Spring Cloud 2020+ 版本中，OpenFeign 默认集成 <strong>Spring Cloud LoadBalancer</strong> 实现客户端负载均衡；旧版本则默认集成 Ribbon。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="lnpbqc.online">lnpbqc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://lnpbqc.github.io/posts/633da770.html">http://lnpbqc.github.io/posts/633da770.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://lnpbqc.github.io" target="_blank">lnpbqc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/SpringCloud/">SpringCloud</a><a class="post-meta__tags" href="/tags/OpenFeign/">OpenFeign</a></div><div class="post-share"><div class="social-share" data-image="https://bing.img.run/rand.php" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>可赞赏，常联系</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.png" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/QQ.png" target="_blank"><img class="post-qr-code-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/QQ.png" alt="QQ群-&quot;785815484&quot;"/></a><div class="post-qr-code-desc">QQ群-&quot;785815484&quot;</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/a31042ee.html" title="使用LSB将数据隐藏到图像中"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picsum.photos/1200/960" onerror="onerror=null;src='/img/img_not_found.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">使用LSB将数据隐藏到图像中</div></div><div class="info-2"><div class="info-item-1">利用最低有效位（Least Significant Bit）实现数据隐写至图像,并且可以反解出原数据,人肉眼无法看出.</div></div></div></a><a class="pagination-related" href="/posts/507cefac.html" title="SpringCloud的Nacos使用简析"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://imgapi.cn/bing.php" onerror="onerror=null;src='/img/img_not_found.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">SpringCloud的Nacos使用简析</div></div><div class="info-2"><div class="info-item-1">如何在SpringCloud里使用nacos的服务发现与治理以及配置</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/507cefac.html" title="SpringCloud的Nacos使用简析"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://imgapi.cn/bing.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-16</div><div class="info-item-2">SpringCloud的Nacos使用简析</div></div><div class="info-2"><div class="info-item-1">如何在SpringCloud里使用nacos的服务发现与治理以及配置</div></div></div></a><a class="pagination-related" href="/posts/b1139ccc.html" title="SpringCloud中的Gateway简单入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/rand.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-21</div><div class="info-item-2">SpringCloud中的Gateway简单入门</div></div><div class="info-2"><div class="info-item-1">通过案例和代码简单学习SpringCloud中的Gateway组件，进行路由控制。</div></div></div></a><a class="pagination-related" href="/posts/925706d8.html" title="Seata的@GlobalTransactional原理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/1920x1080.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-21</div><div class="info-item-2">Seata的@GlobalTransactional原理</div></div><div class="info-2"><div class="info-item-1">SpringCloud的Seata部件中的@GlobalTransactional原理与流程简析</div></div></div></a><a class="pagination-related" href="/posts/da220756.html" title="使用Java连接Redis"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/1920x1080.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-21</div><div class="info-item-2">使用Java连接Redis</div></div><div class="info-2"><div class="info-item-1">简单介绍使用Java连接Redis</div></div></div></a><a class="pagination-related" href="/posts/e2152e23.html" title="Springboot自动配置原理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/1920x1080.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-10</div><div class="info-item-2">Springboot自动配置原理</div></div><div class="info-2"><div class="info-item-1">关于如何在Springboot中利用自动装配原理实现导包即用</div></div></div></a><a class="pagination-related" href="/posts/6854961c.html" title="在MybatisPlus使用什么注解进行Mapper的注入"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://imgapi.cn/bing.php" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-21</div><div class="info-item-2">在MybatisPlus使用什么注解进行Mapper的注入</div></div><div class="info-2"><div class="info-item-1">简单说明讨论一下@MapperScann和@Mapper的区别和优缺点。</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://b0.bdstatic.com/26b069d597f203f6a23513ffbf5c3d00.jpg@h_1280" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="avatar"/></div><div class="author-info-name">lnpbqc</div><div class="author-info-description">随心吧~</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/lnpbqc"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/lnpbqc" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:lnpbqc@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://www.google.com/maps/place/%E5%B9%BF%E5%B7%9E%E5%A1%94%E6%99%AF%E5%8C%BA/@23.106353,113.3254746,17.78z/data=!4m6!3m5!1s0x3402ff718c5ff213:0x881f42b46d6c3c0f!8m2!3d23.10649!4d113.32449!16s%2Fg%2F11p5x3_n_w?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" rel="external nofollow noreferrer" target="_blank" title="广东省"><i class="fas fa-map-pin" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的博客！<br/> 最新博客请到 <a href="https://lnpbqc.github.io" target="_blank">Github 博客</a> 查看。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OpenFeign"><span class="toc-text">OpenFeign</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-OpenFeign%EF%BC%9F"><span class="toc-text">为什么需要 OpenFeign？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-OpenFeign%EF%BC%9F"><span class="toc-text">什么是 OpenFeign？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">OpenFeign 的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">OpenFeign 工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF-Feign"><span class="toc-text">开启 Feign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-Feign-%E6%8E%A5%E5%8F%A3"><span class="toc-text">定义 Feign 接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8-Feign"><span class="toc-text">调用 Feign</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="toc-text">OpenFeign 参数传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0"><span class="toc-text">路径参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E5%8F%82%E6%95%B0"><span class="toc-text">普通参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0%EF%BC%88POST%EF%BC%89"><span class="toc-text">对象参数（POST）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-%E5%AF%B9%E8%B1%A1%E5%8F%82%E6%95%B0"><span class="toc-text">GET 对象参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">文件上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feign-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">Feign 工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5"><span class="toc-text">第三步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E8%B6%85%E6%97%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">OpenFeign 超时配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feign-%E6%97%A5%E5%BF%97"><span class="toc-text">Feign 日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Feign-%E8%AF%B7%E6%B1%82%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">Feign 请求拦截器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fallback%EF%BC%88%E5%85%9C%E5%BA%95%E5%9B%9E%E8%B0%83%EF%BC%89"><span class="toc-text">Fallback（兜底回调）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-Fallback-%E7%B1%BB"><span class="toc-text">定义 Fallback 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feign-%E6%8C%87%E5%AE%9A-fallback"><span class="toc-text">Feign 指定 fallback</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FallbackFactory%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">FallbackFactory（推荐）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="toc-text">OpenFeign 常见错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%9C%8D%E5%8A%A1%E5%90%8D%E9%94%99%E8%AF%AF"><span class="toc-text">1、服务名错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E6%8E%A5%E5%8F%A3%E8%B7%AF%E5%BE%84%E9%94%99%E8%AF%AF"><span class="toc-text">2、接口路径错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E6%B2%A1%E6%9C%89%E5%86%99-PathVariable"><span class="toc-text">3、没有写 @PathVariable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E6%B2%A1%E6%9C%89%E5%86%99-RequestParam"><span class="toc-text">4、没有写 @RequestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%AF%B9%E8%B1%A1%E6%B2%A1%E6%9C%89-RequestBody"><span class="toc-text">5、对象没有 @RequestBody</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E6%B2%A1%E6%9C%89%E5%BC%80%E5%90%AF-Feign"><span class="toc-text">6、没有开启 Feign</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenFeign-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-text">OpenFeign 最佳实践</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/b1139ccc.html" title="SpringCloud中的Gateway简单入门"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/rand.php" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="SpringCloud中的Gateway简单入门"/></a><div class="content"><a class="title" href="/posts/b1139ccc.html" title="SpringCloud中的Gateway简单入门">SpringCloud中的Gateway简单入门</a><time datetime="2026-06-21T14:30:00.000Z" title="发表于 2026-06-21 22:30:00">2026-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/6854961c.html" title="在MybatisPlus使用什么注解进行Mapper的注入"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://imgapi.cn/bing.php" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="在MybatisPlus使用什么注解进行Mapper的注入"/></a><div class="content"><a class="title" href="/posts/6854961c.html" title="在MybatisPlus使用什么注解进行Mapper的注入">在MybatisPlus使用什么注解进行Mapper的注入</a><time datetime="2026-06-21T10:30:00.000Z" title="发表于 2026-06-21 18:30:00">2026-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/925706d8.html" title="Seata的@GlobalTransactional原理"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/1920x1080.php" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="Seata的@GlobalTransactional原理"/></a><div class="content"><a class="title" href="/posts/925706d8.html" title="Seata的@GlobalTransactional原理">Seata的@GlobalTransactional原理</a><time datetime="2026-06-21T10:00:00.000Z" title="发表于 2026-06-21 18:00:00">2026-06-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a31042ee.html" title="使用LSB将数据隐藏到图像中"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://picsum.photos/1200/960" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="使用LSB将数据隐藏到图像中"/></a><div class="content"><a class="title" href="/posts/a31042ee.html" title="使用LSB将数据隐藏到图像中">使用LSB将数据隐藏到图像中</a><time datetime="2026-06-17T11:47:58.000Z" title="发表于 2026-06-17 19:47:58">2026-06-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/633da770.html" title="SpringCloud的OpenFeign使用简析"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://bing.img.run/rand.php" onerror="this.onerror=null;this.src='/img/img_not_found.jpg'" alt="SpringCloud的OpenFeign使用简析"/></a><div class="content"><a class="title" href="/posts/633da770.html" title="SpringCloud的OpenFeign使用简析">SpringCloud的OpenFeign使用简析</a><time datetime="2026-06-17T10:00:00.000Z" title="发表于 2026-06-17 18:00:00">2026-06-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/category_background.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2024 - 2026 By lnpbqc</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text"><a href="https://beian.miit.gov.cn/" rel="external nofollow noreferrer" target="_blank">湘ICP备2024073735号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="/"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.outerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+    setTimeout(() => URL.revokeObjectURL(url), 30000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        if (typeof svg === 'string') {
+          openSvgInNewTab({ source: svg, initViewBox })
+          return
+        }
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+
+    // Avoid binding multiple times on themeChange/pjax
+    if (wrap.__mermaidGestureBound) return
+    wrap.__mermaidGestureBound = true
+
+    // Helper: map client (viewport) coordinate -> viewBox coordinate
+    const clientToViewBox = (clientX, clientY) => {
+      const rect = svg.getBoundingClientRect()
+      const vb = wrap.__mermaidCurViewBox || getSvgViewBox(svg)
+      const x = vb[0] + (clientX - rect.left) * (vb[2] / rect.width)
+      const y = vb[1] + (clientY - rect.top) * (vb[3] / rect.height)
+      return { x, y, rect, vb }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      startCenter: null
+    }
+
+    const clampVb = vb => {
+      const init = wrap.__mermaidInitViewBox || vb
+      const minW = init[2] * 0.1
+      const maxW = init[2] * 10
+      const minH = init[3] * 0.1
+      const maxH = init[3] * 10
+      vb[2] = clamp(vb[2], minW, maxW)
+      vb[3] = clamp(vb[3], minH, maxH)
+      return vb
+    }
+
+    const setCurVb = vb => {
+      vb = clampVb(vb)
+      wrap.__mermaidCurViewBox = vb
+      setSvgViewBox(svg, vb)
+    }
+
+    const onPointerDown = e => {
+      // Allow only primary button for mouse
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      if (state.pointers.size === 1) {
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        state.startCenter = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 }
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+
+      // Pan with 1 pointer
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = [...state.pointers.values()][0]
+        const prev = { x: e.clientX - e.movementX, y: e.clientY - e.movementY }
+        // movementX/Y unreliable on touch, compute from stored last position
+        const last = wrap.__mermaidLastSinglePointer || p
+        const dxClient = p.x - last.x
+        const dyClient = p.y - last.y
+        wrap.__mermaidLastSinglePointer = p
+
+        const { rect } = clientToViewBox(p.x, p.y)
+        const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+        const dx = dxClient * (vb[2] / rect.width)
+        const dy = dyClient * (vb[3] / rect.height)
+        setCurVb([vb[0] - dx, vb[1] - dy, vb[2], vb[3]])
+        return
+      }
+
+      // Pinch zoom with 2 pointers
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist // dist bigger => zoom in (viewBox smaller)
+
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const centerClient = { x: cx, y: cy }
+
+        const pxy = clientToViewBox(centerClient.x, centerClient.y)
+        const cpx = pxy.x
+        const cpy = pxy.y
+
+        const vb = zoomAtPoint(state.startVb, factor, cpx, cpy)
+        setCurVb(vb)
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+        state.startCenter = null
+        wrap.__mermaidLastSinglePointer = null
+      } else if (state.pointers.size === 1) {
+        // reset single pointer baseline to avoid jump
+        wrap.__mermaidLastSinglePointer = [...state.pointers.values()][0]
+      }
+    }
+
+    // Wheel zoom (mouse/trackpad)
+    const onWheel = e => {
+      // ctrlKey on mac trackpad pinch; we treat both as zoom
+      e.preventDefault()
+      const delta = e.deltaY
+      const zoomFactor = delta > 0 ? 1.1 : 0.9
+      const { x, y } = clientToViewBox(e.clientX, e.clientY)
+      const vb = (wrap.__mermaidCurViewBox || getSvgViewBox(svg)).slice()
+      setCurVb(zoomAtPoint(vb, zoomFactor, x, y))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (!init) return
+      wrap.__mermaidCurViewBox = init.slice()
+      setSvgViewBox(svg, init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown)
+    svg.addEventListener('pointermove', onPointerMove)
+    svg.addEventListener('pointerup', onPointerUpOrCancel)
+    svg.addEventListener('pointercancel', onPointerUpOrCancel)
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    svg.addEventListener('dblclick', onDblClick)
+  }
+
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+
+      // Clear old render (themeChange/pjax will rerun)
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      item.__mermaidGestureBound = false
+
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (true) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (false) attachMermaidViewerButton(item)
+      }
+
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const abcjsInit = () => {
+    const abcjsFn = () => {
+      setTimeout(() => {
+        const sheets = document.querySelectorAll(".abc-music-sheet")
+        for (let i = 0; i < sheets.length; i++) {
+          const ele = sheets[i]
+          if (ele.children.length > 0) continue
+
+          // Parse parameters from data-params attribute
+          let params = {}
+          const dp = ele.getAttribute("data-params")
+          if (dp) {
+            try {
+              params = JSON.parse(dp)
+            } catch (e) {
+              console.error("Failed to parse data-params:", e)
+            }
+          }
+
+          // Merge parsed parameters with the responsive option
+          // Ensures params content appears before responsive
+          const options = { ...params, responsive: "resize" }
+
+          // Render the music score using ABCJS.renderAbc
+          ABCJS.renderAbc(ele, ele.textContent, options)
+        }
+      }, 100)
+    }
+
+    if (typeof ABCJS === "object") {
+      abcjsFn()
+    } else {
+      btf.getScript("https://cdn.jsdelivr.net/npm/abcjs@6.6.0/dist/abcjs-basic-min.min.js").then(abcjsFn)
+    }
+  }
+
+  if (window.pjax) {
+    abcjsInit()
+  } else {
+    window.addEventListener("load", abcjsInit)
+  }
+
+  btf.addGlobalFn("encrypt", abcjsInit, "abcjs")
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  const initGitalk = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGitalk = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const gitalk = new Gitalk({
+      clientID: 'Ov23lij2Dpnl3QeSQj2o',
+      clientSecret: 'ea298f9f78bb7d37d09df7b64d623ee92756385d',
+      repo: 'blog_comments',
+      owner: 'lnpbqc',
+      admin: ['lnpbqc'],
+      updateCountCallback: commentCount,
+      ...option,
+      id: isShuoshuo ? path : (option && option.id) || '3c250f17c748e70508ccc5a5c523b78c'
+    })
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async(el, path) => {
+    if (typeof Gitalk === 'function') initGitalk(el, path)
+    else {
+      await btf.getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await btf.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Gitalk' === 'Gitalk'
+      ? window.shuoshuoComment = { loadComment: loadGitalk }
+      : window.loadOtherComment = loadGitalk
+    return
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"left","width":120,"height":240},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"mobile":{"show":true},"log":false});</script></body></html>
