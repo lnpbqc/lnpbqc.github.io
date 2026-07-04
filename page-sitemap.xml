@@ -19,15 +19,6 @@
     
     
     <url>
-        <loc>http://lnpbqc.github.io/link/</loc>
-        <lastmod>2026-06-17T11:13:50.333Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
         <loc>http://lnpbqc.github.io/tags/</loc>
         <lastmod>2026-06-17T11:13:50.333Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -37,8 +28,8 @@
     
     
     <url>
-        <loc>http://lnpbqc.github.io/dev/</loc>
-        <lastmod>2026-06-17T11:13:50.197Z</lastmod>
+        <loc>http://lnpbqc.github.io/link/</loc>
+        <lastmod>2026-06-17T11:13:50.333Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -47,6 +38,15 @@
     
     <url>
         <loc>http://lnpbqc.github.io/features/</loc>
+        <lastmod>2026-06-17T11:13:50.197Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>http://lnpbqc.github.io/dev/</loc>
         <lastmod>2026-06-17T11:13:50.197Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -64,7 +64,7 @@
     
     
     <url>
-        <loc>http://lnpbqc.github.io/camera/ohmygirl.html</loc>
+        <loc>http://lnpbqc.github.io/camera/</loc>
         <lastmod>2026-06-17T11:13:50.194Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -73,7 +73,7 @@
     
     
     <url>
-        <loc>http://lnpbqc.github.io/camera/</loc>
+        <loc>http://lnpbqc.github.io/camera/ohmygirl.html</loc>
         <lastmod>2026-06-17T11:13:50.194Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
